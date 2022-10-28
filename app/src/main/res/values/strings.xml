@@ -1,0 +1,8 @@
+<resources>
+    <!--Base app strings-->
+    <string name="app_name">PET Report</string>
+    <string name="action_settings">Settings</string>
+    
+    <!--Initial screen strings-->
+    <string name="reports_title">Relatórios</string>
+</resources>
