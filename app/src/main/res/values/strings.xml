@@ -8,4 +8,11 @@
     <string name="reports_add_input">Adicionar</string>
     <string name="reports_add_message">Qual o título do seu relatório?</string>
     <string name="reports_add_hint">Relatório parcial 2022/1</string>
+
+    <!--Utils strings-->
+    <string name="delete_recycler_input">Deletar</string>
+    <string name="select_items_delete_size_label">%d</string>
+    <string name="question_delete_exam_label">Tem certeza que deseja deletar os relatórios selecionados?</string>
+    <string name="dialog_positive">Sim</string>
+    <string name="dialog_negative">Não</string>
 </resources>

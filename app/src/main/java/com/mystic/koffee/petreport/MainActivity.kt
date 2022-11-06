@@ -1,9 +1,13 @@
 package com.mystic.koffee.petreport
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import com.mystic.koffee.petreport.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,6 +17,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setup()
+    }
+
+    private fun setup() {
+        actionBar?.setBackgroundDrawable(ColorDrawable(getColor(R.color.primaryColor)))
         setupNavHost()
     }
 

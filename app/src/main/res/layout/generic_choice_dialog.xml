@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -23,61 +25,56 @@
             android:id="@+id/logo_dialog_imageView"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
-            android:contentDescription="@null"
             android:scaleX="0.5"
             android:scaleY="0.5"
             android:src="@drawable/app_logo"
             app:layout_constraintEnd_toEndOf="@id/end_margin_guideLine"
             app:layout_constraintStart_toStartOf="@id/start_margin_guideLine"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/add_report_textView"
+            android:id="@+id/confirmation_message_remove_readings_textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:fontFamily="@font/montserratbold"
-            android:text="@string/reports_add_message"
-            android:textAlignment="center"
-            android:textColor="@color/black"
             android:textSize="16sp"
+            android:fontFamily="@font/montserratbold"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="@id/end_margin_guideLine"
             app:layout_constraintStart_toStartOf="@id/start_margin_guideLine"
-            app:layout_constraintTop_toBottomOf="@id/logo_dialog_imageView" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/signature_code_textInputLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="4dp"
-            android:hint="Escreva o titúlo aqui"
-            android:paddingVertical="16dp"
-            app:layout_constraintEnd_toEndOf="@id/end_margin_guideLine"
-            app:layout_constraintStart_toStartOf="@id/start_margin_guideLine"
-            app:layout_constraintTop_toBottomOf="@id/add_report_textView">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/signature_code_textInputEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@color/white" />
-        </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintTop_toBottomOf="@id/logo_dialog_imageView"
+            tools:text="Deseja deletar esse exame?" />
 
         <Button
-            android:id="@+id/add_report_button"
+            android:id="@+id/not_confirmation_button"
             style="@style/buttonWithBorder"
-            android:layout_width="200dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:fontFamily="@font/montserratregular"
-            android:text="@string/reports_add_input"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/montserratbold"
+            android:text="@string/dialog_negative"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/yes_confirmation_button"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/confirmation_message_remove_readings_textView" />
+
+        <Button
+            android:id="@+id/yes_confirmation_button"
+            style="@style/buttonWithoutBorder"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserratbold"
+            android:text="@string/dialog_positive"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="@id/end_margin_guideLine"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/start_margin_guideLine"
-            app:layout_constraintTop_toBottomOf="@+id/signature_code_textInputLayout" />
+            app:layout_constraintStart_toEndOf="@id/not_confirmation_button"
+            app:layout_constraintTop_toBottomOf="@id/confirmation_message_remove_readings_textView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

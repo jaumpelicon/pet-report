@@ -8,7 +8,7 @@ import androidx.fragment.app.DialogFragment
 import com.mystic.koffee.petreport.databinding.AddReportDialogBinding
 
 class AddReportDialog (
-    private val addReportCallback: () ->  Unit,
+    private val addReportCallback: (title: String) ->  Unit,
 ) : DialogFragment() {
     private lateinit var binding: AddReportDialogBinding
 
@@ -29,7 +29,7 @@ class AddReportDialog (
     private fun setup() {
         with(binding) {
             addReportButton.setOnClickListener {
-                addReportCallback()
+                addReportCallback(binding.signatureCodeTextInputEditText.text.toString())
                 dismiss()
             }
         }
