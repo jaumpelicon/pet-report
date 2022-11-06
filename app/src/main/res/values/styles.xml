@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="buttonWithBorder">
+        <item name="android:textColor">@color/primaryColor</item>
+        <item name="android:padding">12dp</item>
+        <item name="backgroundTint">@color/white</item>
+        <item name="strokeColor">@color/purple_700</item>
+        <item name="strokeWidth">3dp</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="fontFamily">@font/montserratbold</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="buttonWithoutBorder">
+        <item name="android:textColor">@color/primaryColor</item>
+        <item name="android:padding">12dp</item>
+        <item name="backgroundTint">@color/primaryFadeColor</item>
+        <item name="strokeColor">@color/primaryColor</item>
+        <item name="strokeWidth">3dp</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="fontFamily">@font/montserratbold</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+</resources>
