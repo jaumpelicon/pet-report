@@ -17,26 +17,45 @@
                 android:id="@+id/background_imageView"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
-                android:contentDescription="@null"
                 android:src="@drawable/card_reports"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/title_report_card_textView"
-                android:layout_width="wrap_content"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="28dp"
+                android:layout_marginStart="12dp"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:fontFamily="@font/montserratbold"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/background_imageView"
+                app:layout_constraintEnd_toStartOf="@+id/see_detail_imageView"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/background_imageView"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="Relatório Parcial - 2022/2" />
+
+            <ImageView
+                android:id="@+id/see_detail_imageView"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/ic_baseline_chevron_right_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/background_imageView"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/title_report_card_textView"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>
