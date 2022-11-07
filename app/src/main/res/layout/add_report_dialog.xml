@@ -19,23 +19,11 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.04" />
 
-        <ImageView
-            android:id="@+id/logo_dialog_imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:contentDescription="@null"
-            android:scaleX="0.5"
-            android:scaleY="0.5"
-            android:src="@drawable/app_logo"
-            app:layout_constraintEnd_toEndOf="@id/end_margin_guideLine"
-            app:layout_constraintStart_toStartOf="@id/start_margin_guideLine"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/add_report_textView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_width="400dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/montserratbold"
             android:text="@string/reports_add_message"
             android:textAlignment="center"
@@ -43,7 +31,7 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@id/end_margin_guideLine"
             app:layout_constraintStart_toStartOf="@id/start_margin_guideLine"
-            app:layout_constraintTop_toBottomOf="@id/logo_dialog_imageView" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/signature_code_textInputLayout"
@@ -51,7 +39,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="4dp"
-            android:hint="Escreva o titúlo aqui"
+            android:hint="Nome"
             android:paddingVertical="16dp"
             app:layout_constraintEnd_toEndOf="@id/end_margin_guideLine"
             app:layout_constraintStart_toStartOf="@id/start_margin_guideLine"
@@ -61,7 +49,6 @@
                 android:id="@+id/signature_code_textInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:background="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
 

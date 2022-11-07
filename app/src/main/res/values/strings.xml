@@ -6,7 +6,7 @@
     <!--Initial screen strings-->
     <string name="reports_title">Relatórios</string>
     <string name="reports_add_input">Adicionar</string>
-    <string name="reports_add_message">Qual o título do seu relatório?</string>
+    <string name="reports_add_message">Adicionar novo relatório</string>
     <string name="reports_add_hint">Relatório parcial 2022/1</string>
 
     <!--Utils strings-->

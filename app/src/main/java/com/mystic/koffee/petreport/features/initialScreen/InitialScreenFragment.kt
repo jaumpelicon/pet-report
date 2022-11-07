@@ -1,20 +1,30 @@
 package com.mystic.koffee.petreport.features.initialScreen
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.view.ActionMode
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.mystic.koffee.petreport.MainActivity
 import com.mystic.koffee.petreport.R
 import com.mystic.koffee.petreport.databinding.FragmentInitialScreenBinding
 import com.mystic.koffee.petreport.features.initialScreen.adapter.InitialScreenAdapter
 import com.mystic.koffee.petreport.models.ReportsModel
+import com.mystic.koffee.petreport.models.ViewState
+import com.mystic.koffee.petreport.support.extension.getDate
 import com.mystic.koffee.petreport.support.ui.AddReportDialog
 import com.mystic.koffee.petreport.support.ui.GenericChoiceDialog
 import com.mystic.koffee.petreport.support.utils.CreateSupportActionMode
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class InitialScreenFragment : Fragment(R.layout.fragment_initial_screen) {
-
 
     /**
     Fragment life cycle
@@ -23,11 +33,13 @@ class InitialScreenFragment : Fragment(R.layout.fragment_initial_screen) {
     private val binding get() = _binding!!
     private var actionMode: ActionMode? = null
     private lateinit var adapter: InitialScreenAdapter
+    private val viewModel: InitialScreenViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentInitialScreenBinding.bind(view)
         setup()
+        observeCoroutines()
     }
 
     override fun onDestroyView() {
@@ -36,8 +48,8 @@ class InitialScreenFragment : Fragment(R.layout.fragment_initial_screen) {
     }
 
     private fun setup() {
-        setupAdapter(MOCKY)
         setupAddFloatActionButton()
+        setupRefreshState()
     }
 
     private fun setupAdapter(data: List<ReportsModel>) {
@@ -58,9 +70,18 @@ class InitialScreenFragment : Fragment(R.layout.fragment_initial_screen) {
         }
     }
 
+    private fun setupRefreshState() {
+        binding.customSwipeRefresh.setOnRefreshListener { didRefresh() }
+    }
+
     /*
     * Action
     */
+    private fun didRefresh() {
+        changeRefreshVisibility(true)
+        viewModel.getReports()
+    }
+
     private fun onLongClicked(position: Int) {
         enableActionMode(position)
     }
@@ -91,17 +112,117 @@ class InitialScreenFragment : Fragment(R.layout.fragment_initial_screen) {
         actionMode?.finish()
     }
 
-    private fun didClickedDeleteReport(reportId: Int) {
-        //TODO DELETE FROM ROOM LIST
+    private fun didClickedDeleteReport(reportId: Long) {
+        viewModel.deleteReport(reportId)
     }
 
     private fun didClickedShowReport(reportFile: ReportsModel) {
         navigateToReportDetails()
     }
 
-    private fun addReport(title: String){
-        MOCKY.add(ReportsModel(1,title))
-        setupAdapter(MOCKY)
+    @SuppressLint("NewApi")
+    private fun addReport(title: String) {
+        val date = requireContext().getDate()
+        val report = ReportsModel(title, date, false)
+        viewModel.insertReport(report)
+    }
+
+    /* ObserveCoroutines */
+
+    private fun observeCoroutines() {
+        observeInsertReports()
+        observeGetReports()
+        observeDeleteReports()
+    }
+
+    private fun observeGetReports() {
+        lifecycleScope.launch {
+            viewModel.getReportsState
+                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collect { state ->
+                    state?.let {
+                        when (it) {
+                            is ViewState.Success<*> -> {
+                                it.data as MutableList<ReportsModel>
+                                setupAdapter(it.data)
+                                changeRefreshVisibility(false)
+                            }
+                            is ViewState.Loading -> {
+                                //TODO loading
+                            }
+                            is ViewState.Error -> {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error get list",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                            }
+                        }
+                    }
+                }
+        }
+    }
+
+    private fun observeInsertReports() {
+        lifecycleScope.launch {
+            viewModel.insertReportsState
+                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collect { state ->
+                    state?.let {
+                        when (it) {
+                            is ViewState.Success<*> -> {
+                                Toast.makeText(requireContext(), "Inserido", Toast.LENGTH_SHORT)
+                                    .show()
+                                didRefresh()
+                            }
+                            is ViewState.Loading -> {
+                                //TODO loading
+                            }
+                            is ViewState.Error -> {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error coroutines",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                            }
+                        }
+                    }
+                }
+        }
+    }
+
+    private fun observeDeleteReports() {
+        lifecycleScope.launch {
+            viewModel.deleteReportState
+                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collect { state ->
+                    state?.let {
+                        when (it) {
+                            is ViewState.Success<*> -> {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Deletado com sucesso!",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                            }
+                            is ViewState.Loading -> {
+                                //TODO loading
+                            }
+                            is ViewState.Error -> {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Error get list",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                            }
+                        }
+                    }
+                }
+        }
     }
 
 
@@ -118,11 +239,12 @@ class InitialScreenFragment : Fragment(R.layout.fragment_initial_screen) {
         ).show(childFragmentManager, null)
     }
 
+    private fun changeRefreshVisibility(visible: Boolean) {
+        binding.customSwipeRefresh.isRefreshing = visible
+    }
+
     private fun navigateToReportDetails() {
         //TODO NAVIGATE FOR DETAILS REPORT
     }
 
-    companion object {
-        val MOCKY = mutableListOf<ReportsModel>()
-    }
 }

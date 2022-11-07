@@ -10,7 +10,7 @@ import com.mystic.koffee.petreport.models.ReportsModel
 class InitialScreenAdapter (
     private val listReports: MutableList<ReportsModel>,
     private val showReportCallback: (reportFile: ReportsModel) -> Unit,
-    private val deleteCallback: (reportId: Int) -> Unit,
+    private val deleteCallback: (reportId: Long) -> Unit,
     private val onItemLongClick: (reportId: Int) -> Unit,
     private val onItemClick: (reportId: Int) -> Unit,
     private val dialogConfirmDelete: (acceptCallback: () -> Unit) -> Unit

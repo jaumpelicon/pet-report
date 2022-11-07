@@ -1,10 +1,15 @@
 package com.mystic.koffee.petreport.models
 
-import com.google.gson.annotations.SerializedName
-import java.io.Serializable
+import android.service.quicksettings.Tile
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+@Entity(tableName = "reports_model")
 data class ReportsModel(
-    val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Long,
     val title: String,
+    var date : String,
     var selected: Boolean = false
-)
+){
+    constructor(title:String,date:String,selected: Boolean) : this(0,title,date,selected = false)
+}

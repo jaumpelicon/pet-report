@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.mystic.koffee.petreport.databinding.AddReportDialogBinding
+import com.mystic.koffee.petreport.support.extension.setWidthPercent
 
 class AddReportDialog (
     private val addReportCallback: (title: String) ->  Unit,
@@ -18,6 +19,7 @@ class AddReportDialog (
         savedInstanceState: Bundle?
     ): View {
         binding = AddReportDialogBinding.inflate(inflater, container, false)
+        this.setWidthPercent(50)
         return binding.root
     }
 
