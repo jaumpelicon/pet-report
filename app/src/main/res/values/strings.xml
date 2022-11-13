@@ -2,7 +2,7 @@
     <!--Base app strings-->
     <string name="app_name">PET Report</string>
     <string name="action_settings">Settings</string>
-    
+
     <!--Initial screen strings-->
     <string name="reports_title">Relatórios</string>
     <string name="reports_add_input">Adicionar</string>
@@ -15,4 +15,9 @@
     <string name="question_delete_exam_label">Tem certeza que deseja deletar os relatórios selecionados?</string>
     <string name="dialog_positive">Sim</string>
     <string name="dialog_negative">Não</string>
+
+    <!--Empty strings-->
+    <string name="empty_reports_message">Nenhum relatório encontrado</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

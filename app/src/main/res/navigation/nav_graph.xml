@@ -3,11 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/InitialScreen">
+    app:startDestination="@id/ReportsFragment">
 
     <fragment
-        android:id="@+id/InitialScreen"
-        android:name="com.mystic.koffee.petreport.features.initialScreen.InitialScreenFragment"
-        android:label="Tela Inicial"
-        tools:layout="@layout/fragment_first"/>
+        android:id="@+id/ReportsFragment"
+        android:name="com.mystic.koffee.petreport.features.initialScreen.ReportsFragment"
+        android:label="ReportsScreen"
+        tools:layout="@layout/fragment_reports">
+        <action
+            android:id="@+id/action_ReportsFragment_to_ActionsReportsFragment"
+            app:destination="@id/ActionsReportsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ActionsReportsFragment"
+        android:name="com.mystic.koffee.petreport.features.actionsReport.ActionsReportFragment"
+        android:label="ActionsReportsScreen"
+        tools:layout="@layout/fragment_actions_report" />
+
+
+
+
 </navigation>

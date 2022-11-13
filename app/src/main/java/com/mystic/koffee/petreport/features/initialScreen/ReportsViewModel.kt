@@ -9,14 +9,13 @@ import com.mystic.koffee.petreport.models.ViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
-class InitialScreenViewModel @Inject constructor(private val reportsRepository: ReportsRepositoryInterface) :
+class ReportsViewModel @Inject constructor(private val reportsRepository: ReportsRepositoryInterface) :
     ViewModel() {
 
     val insertReportsState get() = _insertReportsState.asStateFlow()
@@ -42,7 +41,6 @@ class InitialScreenViewModel @Inject constructor(private val reportsRepository: 
                     is ResponseState.Error -> {
                         _insertReportsState.value = ViewState.Error(Throwable("Response Error"))
                     }
-                    else -> Unit
                 }
             }
         }
@@ -60,7 +58,6 @@ class InitialScreenViewModel @Inject constructor(private val reportsRepository: 
                     is ResponseState.Error -> {
                         _getReportsState.value = ViewState.Error(Throwable("Response Error"))
                     }
-                    else -> Unit
                 }
             }
         }
@@ -78,7 +75,6 @@ class InitialScreenViewModel @Inject constructor(private val reportsRepository: 
                     is ResponseState.Error -> {
                         _deleteReportState.value = ViewState.Error(Throwable("Response Error"))
                     }
-                    else -> Unit
                 }
             }
         }

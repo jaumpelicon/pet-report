@@ -1,10 +1,10 @@
 package com.mystic.koffee.petreport.features.initialScreen
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.view.ActionMode
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -12,7 +12,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.mystic.koffee.petreport.MainActivity
 import com.mystic.koffee.petreport.R
-import com.mystic.koffee.petreport.databinding.FragmentInitialScreenBinding
+import com.mystic.koffee.petreport.databinding.FragmentReportsBinding
 import com.mystic.koffee.petreport.features.initialScreen.adapter.InitialScreenAdapter
 import com.mystic.koffee.petreport.models.ReportsModel
 import com.mystic.koffee.petreport.models.ViewState
@@ -24,20 +24,20 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class InitialScreenFragment : Fragment(R.layout.fragment_initial_screen) {
+class ReportsFragment : Fragment(R.layout.fragment_reports) {
 
     /**
     Fragment life cycle
      **/
-    private var _binding: FragmentInitialScreenBinding? = null
+    private var _binding: FragmentReportsBinding? = null
     private val binding get() = _binding!!
     private var actionMode: ActionMode? = null
     private lateinit var adapter: InitialScreenAdapter
-    private val viewModel: InitialScreenViewModel by viewModels()
+    private val viewModel: ReportsViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentInitialScreenBinding.bind(view)
+        _binding = FragmentReportsBinding.bind(view)
         setup()
         observeCoroutines()
     }
@@ -92,10 +92,7 @@ class InitialScreenFragment : Fragment(R.layout.fragment_initial_screen) {
 
     private fun enableActionMode(position: Int) {
         actionMode = (activity as MainActivity).startSupportActionMode(
-            CreateSupportActionMode(
-                adapter,
-                actionMode
-            )
+            CreateSupportActionMode(adapter, actionMode)
         )
         didSelectedItems(position)
     }
@@ -120,7 +117,6 @@ class InitialScreenFragment : Fragment(R.layout.fragment_initial_screen) {
         navigateToReportDetails()
     }
 
-    @SuppressLint("NewApi")
     private fun addReport(title: String) {
         val date = requireContext().getDate()
         val report = ReportsModel(title, date, false)
@@ -142,11 +138,7 @@ class InitialScreenFragment : Fragment(R.layout.fragment_initial_screen) {
                 .collect { state ->
                     state?.let {
                         when (it) {
-                            is ViewState.Success<*> -> {
-                                it.data as MutableList<ReportsModel>
-                                setupAdapter(it.data)
-                                changeRefreshVisibility(false)
-                            }
+                            is ViewState.Success<*> -> handleSuccessGetReports(it.data as MutableList<ReportsModel>)
                             is ViewState.Loading -> {
                                 //TODO loading
                             }
@@ -161,6 +153,17 @@ class InitialScreenFragment : Fragment(R.layout.fragment_initial_screen) {
                         }
                     }
                 }
+        }
+    }
+
+    private fun handleSuccessGetReports(data: MutableList<ReportsModel>) {
+        changeRefreshVisibility(false)
+        if (data.isEmpty()) {
+            showEmptyScreen(true)
+        } else {
+            showEmptyScreen(false)
+            setupAdapter(data)
+            changeRefreshVisibility(false)
         }
     }
 
@@ -200,33 +203,36 @@ class InitialScreenFragment : Fragment(R.layout.fragment_initial_screen) {
                 .collect { state ->
                     state?.let {
                         when (it) {
-                            is ViewState.Success<*> -> {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Deletado com sucesso!",
-                                    Toast.LENGTH_SHORT
-                                )
-                                    .show()
-                            }
+                            is ViewState.Success<*> -> handleSucessDeleteReport()
                             is ViewState.Loading -> {
                                 //TODO loading
                             }
-                            is ViewState.Error -> {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Error get list",
-                                    Toast.LENGTH_SHORT
-                                )
-                                    .show()
-                            }
+                            is ViewState.Error -> handleErrorDeleteReport()
                         }
                     }
                 }
         }
     }
 
+    private fun handleSucessDeleteReport() {
+        Toast.makeText(requireContext(), "Deletado com sucesso!", Toast.LENGTH_SHORT).show()
+        didRefresh()
+    }
 
-    /* Dialogs and navigation */
+    private fun handleErrorDeleteReport() {
+        Toast.makeText(requireContext(), "Error get list", Toast.LENGTH_SHORT).show()
+    }
+
+    /* Dialogs and navigation and visibility functions */
+    private fun showEmptyScreen(show: Boolean) {
+        binding.listRecyclerView.isVisible = show.not()
+        binding.emptyImageView.isVisible = show
+        binding.emptyMessageTextView.isVisible = show
+    }
+
+    private fun changeRefreshVisibility(visible: Boolean) {
+        binding.customSwipeRefresh.isRefreshing = visible
+    }
 
     private fun showAddReportDialog() {
         AddReportDialog(addReportCallback = ::addReport).show(childFragmentManager, null)
@@ -239,12 +245,10 @@ class InitialScreenFragment : Fragment(R.layout.fragment_initial_screen) {
         ).show(childFragmentManager, null)
     }
 
-    private fun changeRefreshVisibility(visible: Boolean) {
-        binding.customSwipeRefresh.isRefreshing = visible
-    }
+
 
     private fun navigateToReportDetails() {
-        //TODO NAVIGATE FOR DETAILS REPORT
+        // TODO CALL NAVIGATE ACTION action_ReportsFragment_to_ActionsReportsFragment WITH ARGUMENTS
     }
 
 }
