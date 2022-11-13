@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/ReportsFragment"
-        android:name="com.mystic.koffee.petreport.features.initialScreen.ReportsFragment"
+        android:name="com.mystic.koffee.petreport.features.reportsScreen.ReportsFragment"
         android:label="ReportsScreen"
         tools:layout="@layout/fragment_reports">
         <action
@@ -19,7 +19,13 @@
         android:id="@+id/ActionsReportsFragment"
         android:name="com.mystic.koffee.petreport.features.actionsReport.ActionsReportFragment"
         android:label="ActionsReportsScreen"
-        tools:layout="@layout/fragment_actions_report" />
+        tools:layout="@layout/fragment_actions_report" >
+        <argument
+            android:name="actions_report_title"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 
 
 

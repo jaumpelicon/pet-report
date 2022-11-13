@@ -1,4 +1,4 @@
-package com.mystic.koffee.petreport.features.initialScreen.adapter
+package com.mystic.koffee.petreport.features.reportsScreen.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,7 @@ import com.mystic.koffee.petreport.R
 import com.mystic.koffee.petreport.databinding.ReportItemCardBinding
 import com.mystic.koffee.petreport.models.ReportsModel
 
-class InitialScreenViewHolder(
+class ReportsScreenViewHolder(
     private val binding: ReportItemCardBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -17,7 +17,7 @@ class InitialScreenViewHolder(
     ) {
         with(binding) {
             titleReportCardTextView.text = report.title
-            itemReportCardView.setOnClickListener {
+            seeDetailImageView.setOnClickListener {
                 itemClickCallback(report)
             }
             if (report.selected) {
@@ -29,7 +29,7 @@ class InitialScreenViewHolder(
     }
 
     companion object {
-        fun inflate(parent: ViewGroup) = InitialScreenViewHolder(
+        fun inflate(parent: ViewGroup) = ReportsScreenViewHolder(
             ReportItemCardBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,

@@ -1,7 +1,6 @@
 package com.mystic.koffee.petreport.api
 
 import com.mystic.koffee.petreport.api.dao.ReportsDao
-import com.mystic.koffee.petreport.api.dao.setup.PetReportRoom
 import com.mystic.koffee.petreport.api.repositorys.ReportsRepository
 import com.mystic.koffee.petreport.api.repositorys.ReportsRepositoryInterface
 import dagger.Module

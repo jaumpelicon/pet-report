@@ -1,6 +1,5 @@
 package com.mystic.koffee.petreport.models
 
-import android.service.quicksettings.Tile
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 

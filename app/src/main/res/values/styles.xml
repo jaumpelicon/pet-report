@@ -23,4 +23,26 @@
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
     </style>
+
+    <style name="buttonBack">
+        <item name="android:textColor">@color/primaryColor</item>
+        <item name="backgroundTint">@color/primaryFadeColor</item>
+        <item name="strokeColor">@color/primaryFadeColor</item>
+        <item name="strokeWidth">3dp</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="fontFamily">@font/montserratbold</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="reportExportButton">
+        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">#0C5118</item>
+        <item name="strokeColor">#0C5118</item>
+        <item name="strokeWidth">3dp</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="fontFamily">@font/montserratbold</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>

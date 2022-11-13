@@ -4,10 +4,10 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.view.ActionMode
 import com.mystic.koffee.petreport.R
-import com.mystic.koffee.petreport.features.initialScreen.adapter.InitialScreenAdapter
+import com.mystic.koffee.petreport.features.reportsScreen.adapter.ReportsScreenAdapter
 
 class CreateSupportActionMode(
-    private val adapter: InitialScreenAdapter,
+    private val adapter: ReportsScreenAdapter,
     private var actionMode: ActionMode?
 ) : ActionMode.Callback {
 

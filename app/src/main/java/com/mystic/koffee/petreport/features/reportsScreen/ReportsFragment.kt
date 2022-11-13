@@ -1,21 +1,24 @@
-package com.mystic.koffee.petreport.features.initialScreen
+package com.mystic.koffee.petreport.features.reportsScreen
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.view.ActionMode
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.mystic.koffee.petreport.MainActivity
 import com.mystic.koffee.petreport.R
 import com.mystic.koffee.petreport.databinding.FragmentReportsBinding
-import com.mystic.koffee.petreport.features.initialScreen.adapter.InitialScreenAdapter
+import com.mystic.koffee.petreport.features.reportsScreen.adapter.ReportsScreenAdapter
 import com.mystic.koffee.petreport.models.ReportsModel
 import com.mystic.koffee.petreport.models.ViewState
+import com.mystic.koffee.petreport.support.Constants.NAVIGATION_TITLE_ARGUMENTS
 import com.mystic.koffee.petreport.support.extension.getDate
 import com.mystic.koffee.petreport.support.ui.AddReportDialog
 import com.mystic.koffee.petreport.support.ui.GenericChoiceDialog
@@ -32,7 +35,7 @@ class ReportsFragment : Fragment(R.layout.fragment_reports) {
     private var _binding: FragmentReportsBinding? = null
     private val binding get() = _binding!!
     private var actionMode: ActionMode? = null
-    private lateinit var adapter: InitialScreenAdapter
+    private lateinit var adapter: ReportsScreenAdapter
     private val viewModel: ReportsViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,22 +49,12 @@ class ReportsFragment : Fragment(R.layout.fragment_reports) {
         super.onDestroyView()
         _binding = null
     }
-
+    /**
+    Setup
+     **/
     private fun setup() {
         setupAddFloatActionButton()
         setupRefreshState()
-    }
-
-    private fun setupAdapter(data: List<ReportsModel>) {
-        adapter = InitialScreenAdapter(
-            data as MutableList<ReportsModel>,
-            ::didClickedShowReport,
-            ::didClickedDeleteReport,
-            ::onLongClicked,
-            ::onItemClicked,
-            ::showConfirmDeleteDialog
-        )
-        binding.listRecyclerView.adapter = adapter
     }
 
     private fun setupAddFloatActionButton() {
@@ -74,9 +67,21 @@ class ReportsFragment : Fragment(R.layout.fragment_reports) {
         binding.customSwipeRefresh.setOnRefreshListener { didRefresh() }
     }
 
-    /*
-    * Action
-    */
+    private fun setupAdapter(data: List<ReportsModel>) {
+        adapter = ReportsScreenAdapter(
+            data as MutableList<ReportsModel>,
+            ::didClickedShowReport,
+            ::didClickedDeleteReport,
+            ::onLongClicked,
+            ::onItemClicked,
+            ::showConfirmDeleteDialog
+        )
+        binding.listRecyclerView.adapter = adapter
+    }
+
+    /**
+    Action
+     **/
     private fun didRefresh() {
         changeRefreshVisibility(true)
         viewModel.getReports()
@@ -114,17 +119,18 @@ class ReportsFragment : Fragment(R.layout.fragment_reports) {
     }
 
     private fun didClickedShowReport(reportFile: ReportsModel) {
-        navigateToReportDetails()
+        navigateToReportDetails(reportFile.title)
     }
 
     private fun addReport(title: String) {
-        val date = requireContext().getDate()
+        val date = getDate()
         val report = ReportsModel(title, date, false)
         viewModel.insertReport(report)
     }
 
-    /* ObserveCoroutines */
-
+    /**
+    ObserveCoroutines
+     **/
     private fun observeCoroutines() {
         observeInsertReports()
         observeGetReports()
@@ -139,17 +145,8 @@ class ReportsFragment : Fragment(R.layout.fragment_reports) {
                     state?.let {
                         when (it) {
                             is ViewState.Success<*> -> handleSuccessGetReports(it.data as MutableList<ReportsModel>)
-                            is ViewState.Loading -> {
-                                //TODO loading
-                            }
-                            is ViewState.Error -> {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Error get list",
-                                    Toast.LENGTH_SHORT
-                                )
-                                    .show()
-                            }
+                            is ViewState.Loading -> handleLoading()
+                            is ViewState.Error -> handleErrorGetReports()
                         }
                     }
                 }
@@ -167,6 +164,15 @@ class ReportsFragment : Fragment(R.layout.fragment_reports) {
         }
     }
 
+    private fun handleErrorGetReports() {
+        changeRefreshVisibility(false)
+        Toast.makeText(requireContext(), "Error get list", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun handleLoading() {
+        changeRefreshVisibility(true)
+    }
+
     private fun observeInsertReports() {
         lifecycleScope.launch {
             viewModel.insertReportsState
@@ -174,26 +180,23 @@ class ReportsFragment : Fragment(R.layout.fragment_reports) {
                 .collect { state ->
                     state?.let {
                         when (it) {
-                            is ViewState.Success<*> -> {
-                                Toast.makeText(requireContext(), "Inserido", Toast.LENGTH_SHORT)
-                                    .show()
-                                didRefresh()
-                            }
-                            is ViewState.Loading -> {
-                                //TODO loading
-                            }
-                            is ViewState.Error -> {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Error coroutines",
-                                    Toast.LENGTH_SHORT
-                                )
-                                    .show()
-                            }
+                            is ViewState.Success<*> -> handleSuccessInsertReport()
+                            is ViewState.Loading -> handleLoading() //TODO loading
+                            is ViewState.Error -> handleErrorInsertReport()
+
                         }
                     }
                 }
         }
+    }
+
+    private fun handleSuccessInsertReport() {
+        didRefresh()
+    }
+
+    private fun handleErrorInsertReport() {
+        changeRefreshVisibility(false)
+        Toast.makeText(requireContext(), "Error insert item list", Toast.LENGTH_SHORT).show()
     }
 
     private fun observeDeleteReports() {
@@ -203,7 +206,7 @@ class ReportsFragment : Fragment(R.layout.fragment_reports) {
                 .collect { state ->
                     state?.let {
                         when (it) {
-                            is ViewState.Success<*> -> handleSucessDeleteReport()
+                            is ViewState.Success<*> -> handleSuccessDeleteReport()
                             is ViewState.Loading -> {
                                 //TODO loading
                             }
@@ -214,16 +217,18 @@ class ReportsFragment : Fragment(R.layout.fragment_reports) {
         }
     }
 
-    private fun handleSucessDeleteReport() {
-        Toast.makeText(requireContext(), "Deletado com sucesso!", Toast.LENGTH_SHORT).show()
+    private fun handleSuccessDeleteReport() {
         didRefresh()
     }
 
     private fun handleErrorDeleteReport() {
-        Toast.makeText(requireContext(), "Error get list", Toast.LENGTH_SHORT).show()
+        changeRefreshVisibility(false)
+        Toast.makeText(requireContext(), "Error delete item list", Toast.LENGTH_SHORT).show()
     }
 
-    /* Dialogs and navigation and visibility functions */
+    /**
+    Dialogs and navigation and visibility functions
+     **/
     private fun showEmptyScreen(show: Boolean) {
         binding.listRecyclerView.isVisible = show.not()
         binding.emptyImageView.isVisible = show
@@ -245,10 +250,8 @@ class ReportsFragment : Fragment(R.layout.fragment_reports) {
         ).show(childFragmentManager, null)
     }
 
-
-
-    private fun navigateToReportDetails() {
-        // TODO CALL NAVIGATE ACTION action_ReportsFragment_to_ActionsReportsFragment WITH ARGUMENTS
+    private fun navigateToReportDetails(titleArguments: String) {
+        val arguments = bundleOf(NAVIGATION_TITLE_ARGUMENTS to titleArguments)
+        findNavController().navigate(R.id.action_ReportsFragment_to_ActionsReportsFragment, arguments)
     }
-
 }

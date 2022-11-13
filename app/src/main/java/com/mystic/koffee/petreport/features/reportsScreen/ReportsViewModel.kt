@@ -1,4 +1,4 @@
-package com.mystic.koffee.petreport.features.initialScreen
+package com.mystic.koffee.petreport.features.reportsScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -50,7 +50,7 @@ class ReportsViewModel @Inject constructor(private val reportsRepository: Report
         viewModelScope.launch {
             reportsRepository.getAllReports().onStart {
                 _getReportsState.value = ViewState.Loading
-            }.collect() { state ->
+            }.collect { state ->
                 when (state) {
                     is ResponseState.Success -> {
                         _getReportsState.value = ViewState.Success(state.value)
@@ -67,7 +67,7 @@ class ReportsViewModel @Inject constructor(private val reportsRepository: Report
         viewModelScope.launch {
             reportsRepository.removeReports(reportId).onStart {
                 _deleteReportState.value = ViewState.Loading
-            }.collect() { state ->
+            }.collect { state ->
                 when (state) {
                     is ResponseState.Success -> {
                         _deleteReportState.value = ViewState.Success(state.value)

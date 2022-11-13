@@ -10,7 +10,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @SuppressLint("NewApi")
-fun Context.getDate(): String {
+fun getDate(): String {
     val date =    LocalDateTime.now().toString()
     val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
     return date.format(formatter)

@@ -1,5 +1,5 @@
 package com.mystic.koffee.petreport.support
 
 object Constants {
-    const val DATABASE = "petreport.db"
+    const val NAVIGATION_TITLE_ARGUMENTS = "title_reports"
 }

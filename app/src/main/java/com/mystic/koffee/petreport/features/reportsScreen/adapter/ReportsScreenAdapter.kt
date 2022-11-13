@@ -1,4 +1,4 @@
-package com.mystic.koffee.petreport.features.initialScreen.adapter
+package com.mystic.koffee.petreport.features.reportsScreen.adapter
 
 import android.util.SparseBooleanArray
 import android.view.ViewGroup
@@ -7,14 +7,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mystic.koffee.petreport.models.ReportsModel
 
-class InitialScreenAdapter (
+class ReportsScreenAdapter (
     private val listReports: MutableList<ReportsModel>,
     private val showReportCallback: (reportFile: ReportsModel) -> Unit,
     private val deleteCallback: (reportId: Long) -> Unit,
     private val onItemLongClick: (reportId: Int) -> Unit,
     private val onItemClick: (reportId: Int) -> Unit,
     private val dialogConfirmDelete: (acceptCallback: () -> Unit) -> Unit
-) : RecyclerView.Adapter<InitialScreenViewHolder>() {
+) : RecyclerView.Adapter<ReportsScreenViewHolder>() {
 
     val selectedItems = SparseBooleanArray()
     private var currentSelectPosition: Int = -1
@@ -22,16 +22,16 @@ class InitialScreenAdapter (
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): InitialScreenViewHolder {
-        return InitialScreenViewHolder.inflate(parent)
+    ): ReportsScreenViewHolder {
+        return ReportsScreenViewHolder.inflate(parent)
     }
 
-    override fun onBindViewHolder(holder: InitialScreenViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ReportsScreenViewHolder, position: Int) {
         holder.bind(listReports[position], showReportCallback)
         setupClickedItemsViewHolder(holder, position)
     }
 
-    private fun setupClickedItemsViewHolder(holder: InitialScreenViewHolder, position: Int) {
+    private fun setupClickedItemsViewHolder(holder: ReportsScreenViewHolder, position: Int) {
         holder.itemView.setOnClickListener {
             if (selectedItems.isNotEmpty()) onItemClick.invoke(position)
         }
@@ -70,7 +70,7 @@ class InitialScreenAdapter (
 
     private fun executeDelete() {
         listReports.filter { it.selected }.forEach { deleteCallback(it.id) }
-        listReports.removeAll(listReports.filter { it.selected })
+        listReports.removeAll(listReports.filter { it.selected }.toSet())
         notifyDataSetChanged()
         currentSelectPosition = -1
         clearSelectedExams()
