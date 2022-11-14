@@ -21,30 +21,21 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.04" />
 
-        <ImageView
-            android:id="@+id/logo_dialog_imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:scaleX="0.5"
-            android:scaleY="0.5"
-            android:src="@drawable/app_logo"
-            app:layout_constraintEnd_toEndOf="@id/end_margin_guideLine"
-            app:layout_constraintStart_toStartOf="@id/start_margin_guideLine"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/confirmation_message_remove_readings_textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:padding="16dp"
             android:textSize="16sp"
+            android:lines="2"
             android:fontFamily="@font/montserratbold"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="@id/end_margin_guideLine"
             app:layout_constraintStart_toStartOf="@id/start_margin_guideLine"
-            app:layout_constraintTop_toBottomOf="@id/logo_dialog_imageView"
-            tools:text="Deseja deletar esse exame?" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Deseja deletar esse relatório?" />
 
         <Button
             android:id="@+id/not_confirmation_button"
