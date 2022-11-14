@@ -14,6 +14,9 @@
     <string name="back_button_title">Voltar</string>
     <string name="share_report_button_title">Gerar Relatório</string>
 
+    <!--Add Action Screen strings-->
+    <string name="new_action_title">Nova Atividade</string>
+    <string name="dd_mm_yyyy_date_formatter">"%02d/%02d/%04d"</string>
 
     <!--Utils strings-->
     <string name="delete_recycler_input">Deletar</string>
@@ -22,6 +25,6 @@
     <string name="dialog_positive">Sim</string>
     <string name="dialog_negative">Não</string>
 
-    <!--Empty strings-->
+    <!--Info messages strings-->
     <string name="empty_reports_message">Nenhum relatório encontrado</string>
 </resources>

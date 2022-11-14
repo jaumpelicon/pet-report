@@ -1,4 +1,4 @@
-package com.mystic.koffee.petreport.features.actionsReport
+package com.mystic.koffee.petreport.features.actionsReportScreen
 
 import android.os.Bundle
 import android.view.View
@@ -8,7 +8,9 @@ import androidx.navigation.fragment.findNavController
 import com.mystic.koffee.petreport.R
 import com.mystic.koffee.petreport.databinding.FragmentActionsReportBinding
 import com.mystic.koffee.petreport.support.Constants.NAVIGATION_TITLE_ARGUMENTS
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ActionsReportFragment : Fragment(R.layout.fragment_actions_report) {
 
     private var _binding: FragmentActionsReportBinding? = null
@@ -46,6 +48,8 @@ class ActionsReportFragment : Fragment(R.layout.fragment_actions_report) {
     }
 
     private fun setupFloatActionButton() {
-        //TODO NAVIGATE FOR CREATE ACTION
+        binding.addActionFloatingActionButton.setOnClickListener {
+            findNavController().navigate(R.id.action_ActionsReportsFragment_to_addActionFragment2)
+        }
     }
 }

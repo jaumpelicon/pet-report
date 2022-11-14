@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.mystic.koffee.petreport"
-        minSdk 23
+        minSdk 26
         targetSdk 32
         versionCode 2
         versionName "1.0"
