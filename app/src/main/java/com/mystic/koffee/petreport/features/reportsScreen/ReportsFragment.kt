@@ -181,7 +181,7 @@ class ReportsFragment : Fragment(R.layout.fragment_reports) {
                     state?.let {
                         when (it) {
                             is ViewState.Success<*> -> handleSuccessInsertReport()
-                            is ViewState.Loading -> handleLoading() //TODO loading
+                            is ViewState.Loading -> handleLoading()
                             is ViewState.Error -> handleErrorInsertReport()
 
                         }
@@ -207,9 +207,7 @@ class ReportsFragment : Fragment(R.layout.fragment_reports) {
                     state?.let {
                         when (it) {
                             is ViewState.Success<*> -> handleSuccessDeleteReport()
-                            is ViewState.Loading -> {
-                                //TODO loading
-                            }
+                            is ViewState.Loading -> handleLoading()
                             is ViewState.Error -> handleErrorDeleteReport()
                         }
                     }

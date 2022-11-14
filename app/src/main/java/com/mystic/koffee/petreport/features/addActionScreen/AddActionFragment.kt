@@ -1,14 +1,15 @@
 package com.mystic.koffee.petreport.features.addActionScreen
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.mystic.koffee.petreport.R
 import com.mystic.koffee.petreport.databinding.FragmentAddActionBinding
+import com.mystic.koffee.petreport.support.extension.hideKeyboard
 import com.mystic.koffee.petreport.support.extension.toString
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.Instant
@@ -30,6 +31,7 @@ class AddActionFragment : Fragment(R.layout.fragment_add_action) {
         setupBackButton()
         setupInitialDateTextView()
         setupFinalDateTextView()
+        setupHideKeyboard()
     }
 
     private fun setupBackButton() {
@@ -67,6 +69,14 @@ class AddActionFragment : Fragment(R.layout.fragment_add_action) {
                     .toLocalDate()
                 binding.finalDateFilterTextView.text = data.toString("dd/MM/yyyy")
             }
+        }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun setupHideKeyboard() {
+        binding.defaultContraintLayout.setOnTouchListener { view, _ ->
+            view?.let { requireContext().hideKeyboard(it) }
+            true
         }
     }
 }
