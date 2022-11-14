@@ -24,6 +24,7 @@
     <string name="question_delete_exam_label">Tem certeza que deseja deletar os relatórios selecionados?</string>
     <string name="dialog_positive">Sim</string>
     <string name="dialog_negative">Não</string>
+    <string name="name_input_dialog">Nome</string>
 
     <!--Info messages strings-->
     <string name="empty_reports_message">Nenhum relatório encontrado</string>

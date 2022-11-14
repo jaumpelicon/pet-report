@@ -35,11 +35,11 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/signature_code_textInputLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="4dp"
-            android:hint="Nome"
+            android:hint="@string/name_input_dialog"
             android:paddingVertical="16dp"
             app:layout_constraintEnd_toEndOf="@id/end_margin_guideLine"
             app:layout_constraintStart_toStartOf="@id/start_margin_guideLine"
@@ -48,8 +48,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/signature_code_textInputEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white" />
+                android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button

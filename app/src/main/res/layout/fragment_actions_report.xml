@@ -55,7 +55,7 @@
                 android:layout_marginHorizontal="8dp"
                 android:visibility="visible"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/report_item_card" />
+                tools:listitem="@layout/action_report_item_card" />
         </com.mystic.koffee.petreport.support.ui.CustomSwipeRefreshLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
