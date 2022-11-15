@@ -1,26 +1,26 @@
-package com.mystic.koffee.petreport.features.reportsScreen.adapter
+package com.mystic.koffee.petreport.features.actions.actionsReportScreen.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mystic.koffee.petreport.R
-import com.mystic.koffee.petreport.databinding.ReportItemCardBinding
-import com.mystic.koffee.petreport.features.reportsScreen.models.ReportsModel
+import com.mystic.koffee.petreport.databinding.ActionReportItemCardBinding
+import com.mystic.koffee.petreport.features.actions.addActionScreen.models.ActionsModel
 
-class ReportsScreenViewHolder(
-    private val binding: ReportItemCardBinding
+class ActionViewHolder (
+    private val binding: ActionReportItemCardBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(
-        report: ReportsModel,
-        itemClickCallback: (report: ReportsModel) -> Unit,
+        action: ActionsModel,
+        itemClickCallback: (report: ActionsModel) -> Unit,
     ) {
         with(binding) {
-            titleReportCardTextView.text = report.title
+            titleActionCardTextView.text = action.title
             seeDetailImageView.setOnClickListener {
-                itemClickCallback(report)
+                itemClickCallback(action)
             }
-            if (report.selected) {
+            if (action.selected) {
                 binding.itemReportCardView.setBackgroundResource(R.color.itemSelected)
             } else {
                 binding.itemReportCardView.setBackgroundResource(R.color.white)
@@ -29,8 +29,8 @@ class ReportsScreenViewHolder(
     }
 
     companion object {
-        fun inflate(parent: ViewGroup) = ReportsScreenViewHolder(
-            ReportItemCardBinding.inflate(
+        fun inflate(parent: ViewGroup) = ActionViewHolder(
+            ActionReportItemCardBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false

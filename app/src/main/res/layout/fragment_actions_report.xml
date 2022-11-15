@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".features.actionsReportScreen.ActionsReportFragment">
+        tools:context=".features.actions.actionsReportScreen.ActionsReportFragment">
 
         <Button
             android:id="@+id/back_button"
@@ -57,6 +57,34 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/action_report_item_card" />
         </com.mystic.koffee.petreport.support.ui.CustomSwipeRefreshLayout>
+
+        <ImageView
+            android:id="@+id/empty_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_empty"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/empty_message_textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_actions_report_textView"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/empty_message_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:fontFamily="@font/montserratregular"
+            android:text="@string/empty_reports_message"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/empty_imageView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/empty_imageView"
+            app:layout_constraintTop_toBottomOf="@+id/empty_imageView" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_action_floatingActionButton"

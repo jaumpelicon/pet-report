@@ -1,4 +1,4 @@
-package com.mystic.koffee.petreport.models
+package com.mystic.koffee.petreport.features.reportsScreen.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -10,5 +10,5 @@ data class ReportsModel(
     var date : String,
     var selected: Boolean = false
 ){
-    constructor(title:String,date:String,selected: Boolean) : this(0,title,date,selected = false)
+    constructor(title:String,date:String) : this(0,title,date)
 }

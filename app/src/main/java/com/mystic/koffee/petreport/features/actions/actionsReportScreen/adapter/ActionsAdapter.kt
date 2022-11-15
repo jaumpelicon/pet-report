@@ -1,20 +1,20 @@
-package com.mystic.koffee.petreport.features.reportsScreen.adapter
+package com.mystic.koffee.petreport.features.actions.actionsReportScreen.adapter
 
 import android.util.SparseBooleanArray
 import android.view.ViewGroup
 import androidx.core.util.isNotEmpty
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.mystic.koffee.petreport.features.reportsScreen.models.ReportsModel
+import com.mystic.koffee.petreport.features.actions.addActionScreen.models.ActionsModel
 
-class ReportsScreenAdapter (
-    private val listReports: MutableList<ReportsModel>,
-    private val showReportCallback: (reportFile: ReportsModel) -> Unit,
+class ActionsAdapter (
+    private val listReports: MutableList<ActionsModel>,
+    private val showReportCallback: (reportFile: ActionsModel) -> Unit,
     private val deleteCallback: (reportId: Long) -> Unit,
     private val onItemLongClick: (reportId: Int) -> Unit,
     private val onItemClick: (reportId: Int) -> Unit,
     private val dialogConfirmDelete: (acceptCallback: () -> Unit) -> Unit
-) : RecyclerView.Adapter<ReportsScreenViewHolder>() {
+) : RecyclerView.Adapter<ActionViewHolder>() {
 
     val selectedItems = SparseBooleanArray()
     private var currentSelectPosition: Int = -1
@@ -22,16 +22,16 @@ class ReportsScreenAdapter (
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ReportsScreenViewHolder {
-        return ReportsScreenViewHolder.inflate(parent)
+    ): ActionViewHolder {
+        return ActionViewHolder.inflate(parent)
     }
 
-    override fun onBindViewHolder(holder: ReportsScreenViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ActionViewHolder, position: Int) {
         holder.bind(listReports[position], showReportCallback)
         setupClickedItemsViewHolder(holder, position)
     }
 
-    private fun setupClickedItemsViewHolder(holder: ReportsScreenViewHolder, position: Int) {
+    private fun setupClickedItemsViewHolder(holder: ActionViewHolder, position: Int) {
         holder.itemView.setOnClickListener {
             if (selectedItems.isNotEmpty()) onItemClick.invoke(position)
         }
@@ -76,11 +76,11 @@ class ReportsScreenAdapter (
         clearSelectedExams()
     }
 
-    companion object DiffUtilCallback : DiffUtil.ItemCallback<ReportsModel>() {
-        override fun areItemsTheSame(oldItem: ReportsModel, newItem: ReportsModel) =
+    companion object DiffUtilCallback : DiffUtil.ItemCallback<ActionsModel>() {
+        override fun areItemsTheSame(oldItem: ActionsModel, newItem: ActionsModel) =
             oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: ReportsModel, newItem: ReportsModel) =
+        override fun areContentsTheSame(oldItem: ActionsModel, newItem: ActionsModel) =
             oldItem.id == newItem.id
     }
 }

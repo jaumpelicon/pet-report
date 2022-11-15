@@ -1,9 +1,9 @@
 package com.mystic.koffee.petreport.api.repositorys
 
 import android.database.sqlite.SQLiteException
-import com.mystic.koffee.petreport.api.dao.ReportsDao
+import com.mystic.koffee.petreport.api.dao.repositorys.ReportsDao
 import com.mystic.koffee.petreport.api.model.ResponseState
-import com.mystic.koffee.petreport.models.ReportsModel
+import com.mystic.koffee.petreport.features.reportsScreen.models.ReportsModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

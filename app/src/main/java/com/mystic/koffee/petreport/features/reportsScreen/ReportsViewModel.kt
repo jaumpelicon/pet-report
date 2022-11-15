@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mystic.koffee.petreport.api.model.ResponseState
 import com.mystic.koffee.petreport.api.repositorys.ReportsRepositoryInterface
-import com.mystic.koffee.petreport.models.ReportsModel
+import com.mystic.koffee.petreport.features.reportsScreen.models.ReportsModel
 import com.mystic.koffee.petreport.models.ViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -1,18 +1,27 @@
-package com.mystic.koffee.petreport.features.addActionScreen
+package com.mystic.koffee.petreport.features.actions.addActionScreen
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.mystic.koffee.petreport.R
 import com.mystic.koffee.petreport.databinding.FragmentAddActionBinding
+import com.mystic.koffee.petreport.features.actions.ActionsViewModel
+import com.mystic.koffee.petreport.features.actions.addActionScreen.models.ActionsModel
+import com.mystic.koffee.petreport.models.ViewState
 import com.mystic.koffee.petreport.support.extension.hideKeyboard
 import com.mystic.koffee.petreport.support.extension.toString
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.ZoneId
 import java.time.ZoneOffset
@@ -22,10 +31,14 @@ class AddActionFragment : Fragment(R.layout.fragment_add_action) {
 
     private var _binding: FragmentAddActionBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: ActionsViewModel by viewModels()
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentAddActionBinding.bind(view)
         setup()
+        observeCoroutines()
     }
 
     private fun setup() {
@@ -34,6 +47,7 @@ class AddActionFragment : Fragment(R.layout.fragment_add_action) {
         setupFinalDateTextView()
         setupHideKeyboard()
         setupMaterialAutoComplete()
+        setupAddActionButton()
     }
 
     private fun setupMaterialAutoComplete() {
@@ -54,7 +68,7 @@ class AddActionFragment : Fragment(R.layout.fragment_add_action) {
     }
 
     private fun setupInitialDateTextView() {
-        binding.initialDateFilterTextView.setOnClickListener {
+        binding.initialDateTextView.setOnClickListener {
             val datePicker = MaterialDatePicker.Builder.datePicker().build()
             datePicker.show(childFragmentManager, "DatePicker")
             datePicker.addOnPositiveButtonClickListener { date ->
@@ -62,13 +76,13 @@ class AddActionFragment : Fragment(R.layout.fragment_add_action) {
                     .atZone(ZoneId.of("America/Sao_Paulo"))
                     .withZoneSameInstant(ZoneId.ofOffset("UTC", ZoneOffset.UTC))
                     .toLocalDate()
-                binding.initialDateFilterTextView.text = data.toString("dd/MM/yyyy")
+                binding.initialDateTextView.text = data.toString("dd/MM/yyyy")
             }
         }
     }
 
     private fun setupFinalDateTextView() {
-        binding.finalDateFilterTextView.setOnClickListener {
+        binding.finalDateTextView.setOnClickListener {
             val datePicker = MaterialDatePicker.Builder.datePicker().build()
             datePicker.show(childFragmentManager, "DatePicker")
             datePicker.addOnPositiveButtonClickListener { date ->
@@ -76,9 +90,59 @@ class AddActionFragment : Fragment(R.layout.fragment_add_action) {
                     .atZone(ZoneId.of("America/Sao_Paulo"))
                     .withZoneSameInstant(ZoneId.ofOffset("UTC", ZoneOffset.UTC))
                     .toLocalDate()
-                binding.finalDateFilterTextView.text = data.toString("dd/MM/yyyy")
+                binding.finalDateTextView.text = data.toString("dd/MM/yyyy")
             }
         }
+    }
+
+    private fun setupAddActionButton() {
+        binding.addActionButton.setOnClickListener {
+            addAction()
+        }
+    }
+
+    private fun addAction() {
+        //TODO VALIDATE IF NOT EMPTY
+        val action = ActionsModel(
+            binding.titleActionTextInputEditText.text.toString(),
+            binding.hoursActionTextInputEditText.text.toString(),
+            binding.initialDateTextView.text.toString(),
+            binding.finalDateTextView.text.toString(),
+            binding.descriptionTextInputEditText.text.toString(),
+            binding.goalsTextInputEditText.text.toString(),
+            binding.methodologyTextInputEditText.text.toString(),
+            binding.resultsTextInputEditText.text.toString(),
+            binding.evaluationMethodologyTextInputEditText.text.toString(),
+            binding.evaluationActionTextInputEditText.toString()
+            )
+        viewModel.insertAction(action)
+    }
+
+    private fun observeCoroutines(){
+        observeInsertReports()
+    }
+
+    private fun observeInsertReports() {
+        lifecycleScope.launch {
+            viewModel.insertActionsState
+                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collect { state ->
+                    state?.let {
+                        when (it) {
+                            is ViewState.Success<*> -> handleSuccessInsertAction()
+                            is ViewState.Error -> handleErrorInsertAction()
+                        }
+                    }
+                }
+        }
+    }
+
+    private fun handleSuccessInsertAction() {
+        findNavController().navigate(R.id.action_addActionFragment_to_ActionsReportsFragment)
+    }
+
+    private fun handleErrorInsertAction() {
+        Toast.makeText(requireContext(), "Error insert item list", Toast.LENGTH_SHORT).show()
     }
 
     @SuppressLint("ClickableViewAccessibility")

@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/ActionsReportsFragment"
-        android:name="com.mystic.koffee.petreport.features.actionsReportScreen.ActionsReportFragment"
+        android:name="com.mystic.koffee.petreport.features.actions.actionsReportScreen.ActionsReportFragment"
         android:label="ActionsReportsScreen"
         tools:layout="@layout/fragment_actions_report">
         <argument
@@ -28,11 +28,18 @@
         <action
             android:id="@+id/action_ActionsReportsFragment_to_addActionFragment2"
             app:destination="@id/addActionFragment" />
+        <action
+            android:id="@+id/action_ActionsReportsFragment_to_ReportsFragment"
+            app:destination="@id/ReportsFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/addActionFragment"
-        android:name="com.mystic.koffee.petreport.features.addActionScreen.AddActionFragment"
+        android:name="com.mystic.koffee.petreport.features.actions.addActionScreen.AddActionFragment"
         android:label="AddActionFragment"
-        tools:layout="@layout/fragment_add_action" />
+        tools:layout="@layout/fragment_add_action" >
+        <action
+            android:id="@+id/action_addActionFragment_to_ActionsReportsFragment"
+            app:destination="@id/ActionsReportsFragment" />
+    </fragment>
 </navigation>

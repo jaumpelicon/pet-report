@@ -1,10 +1,10 @@
-package com.mystic.koffee.petreport.api.dao
+package com.mystic.koffee.petreport.api.dao.repositorys
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
-import com.mystic.koffee.petreport.models.ReportsModel
+import com.mystic.koffee.petreport.features.reportsScreen.models.ReportsModel
 
 @Dao
 interface ReportsDao {

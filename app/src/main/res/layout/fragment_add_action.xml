@@ -17,7 +17,7 @@
                 android:id="@+id/default_contraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:context=".features.addActionScreen.AddActionFragment">
+                tools:context=".features.actions.addActionScreen.AddActionFragment">
 
                 <Button
                     android:id="@+id/back_button"
@@ -78,19 +78,19 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
-                    android:id="@+id/initial_date_textView"
+                    android:id="@+id/initial_date_description_textView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserratbold"
                     android:padding="16dp"
                     android:text="@string/initial_date_description"
-                    app:layout_constraintEnd_toStartOf="@+id/final_date_textView"
+                    app:layout_constraintEnd_toStartOf="@+id/final_date_description_textView"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="@+id/hours_action_textInputLayout"
                     app:layout_constraintTop_toBottomOf="@+id/hours_action_textInputLayout" />
 
                 <TextView
-                    android:id="@+id/initial_date_filter_textView"
+                    android:id="@+id/initial_date_textView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
@@ -98,12 +98,12 @@
                     android:fontFamily="@font/montserratregular"
                     android:textColor="@color/primaryColor"
                     app:drawableEndCompat="@drawable/ic_calendar"
-                    app:layout_constraintEnd_toEndOf="@+id/initial_date_textView"
-                    app:layout_constraintStart_toStartOf="@+id/initial_date_textView"
-                    app:layout_constraintTop_toBottomOf="@+id/initial_date_textView" />
+                    app:layout_constraintEnd_toEndOf="@+id/initial_date_description_textView"
+                    app:layout_constraintStart_toStartOf="@+id/initial_date_description_textView"
+                    app:layout_constraintTop_toBottomOf="@+id/initial_date_description_textView" />
 
                 <TextView
-                    android:id="@+id/final_date_textView"
+                    android:id="@+id/final_date_description_textView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserratbold"
@@ -111,11 +111,11 @@
                     android:text="@string/final_date_description"
                     app:layout_constraintEnd_toEndOf="@+id/hours_action_textInputLayout"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/initial_date_textView"
+                    app:layout_constraintStart_toEndOf="@+id/initial_date_description_textView"
                     app:layout_constraintTop_toBottomOf="@+id/hours_action_textInputLayout" />
 
                 <TextView
-                    android:id="@+id/final_date_filter_textView"
+                    android:id="@+id/final_date_textView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
@@ -123,9 +123,9 @@
                     android:fontFamily="@font/montserratregular"
                     android:textColor="@color/primaryColor"
                     app:drawableEndCompat="@drawable/ic_calendar"
-                    app:layout_constraintEnd_toEndOf="@+id/final_date_textView"
-                    app:layout_constraintStart_toStartOf="@+id/final_date_textView"
-                    app:layout_constraintTop_toBottomOf="@+id/final_date_textView" />
+                    app:layout_constraintEnd_toEndOf="@+id/final_date_description_textView"
+                    app:layout_constraintStart_toStartOf="@+id/final_date_description_textView"
+                    app:layout_constraintTop_toBottomOf="@+id/final_date_description_textView" />
 
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -138,7 +138,7 @@
                     android:paddingVertical="4dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/title_create_action_textView"
-                    app:layout_constraintTop_toBottomOf="@+id/initial_date_filter_textView">
+                    app:layout_constraintTop_toBottomOf="@+id/initial_date_textView">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/description_textInputEditText"
@@ -274,6 +274,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
+                    android:id="@+id/add_action_button"
                     android:layout_width="0dp"
                     android:layout_height="52dp"
                     android:layout_marginVertical="16dp"

@@ -1,6 +1,9 @@
 package com.mystic.koffee.petreport.api
 
-import com.mystic.koffee.petreport.api.dao.ReportsDao
+import com.mystic.koffee.petreport.api.dao.repositorys.ActionsDao
+import com.mystic.koffee.petreport.api.dao.repositorys.ReportsDao
+import com.mystic.koffee.petreport.api.repositorys.ActionsRepository
+import com.mystic.koffee.petreport.api.repositorys.ActionsRepositoryInterface
 import com.mystic.koffee.petreport.api.repositorys.ReportsRepository
 import com.mystic.koffee.petreport.api.repositorys.ReportsRepositoryInterface
 import dagger.Module
@@ -16,4 +19,8 @@ class ApiModule {
     @Provides
     fun provideReportsRepository(reportsDao: ReportsDao): ReportsRepositoryInterface =
         ReportsRepository(reportsDao)
+
+    @Provides
+    fun provideActionsRepository(actionsDao: ActionsDao): ActionsRepositoryInterface =
+        ActionsRepository(actionsDao)
 }
