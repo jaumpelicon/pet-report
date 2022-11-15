@@ -45,6 +45,8 @@ class ReportsRepository @Inject constructor(private val daoRepository: ReportsDa
         return flow{
             try {
                 daoRepository.removeReport(reportId)
+                daoRepository.cleanActionsByReport(reportId)
+
                 emit(ResponseState.Success(Unit))
             }
             catch (error: Exception){

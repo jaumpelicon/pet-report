@@ -20,4 +20,7 @@ interface ActionsDao {
     @Transaction
     @Query("SELECT * FROM actions WHERE fkReportId = :reportId ORDER BY strftime(initialDate) DESC")
     fun getAllActions(reportId: Long): List<ActionsModel>
+
+    @Query("DELETE FROM actions")
+    fun dropActionsBank()
 }

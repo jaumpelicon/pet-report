@@ -20,4 +20,11 @@ interface ReportsDao {
     @Transaction
     @Query("SELECT * FROM reports ORDER BY strftime(date) DESC")
     fun getAllReports(): List<ReportsModel>
+
+
+    @Query("DELETE FROM actions WHERE fkReportId = :reportId")
+    fun cleanActionsByReport(reportId: Long)
+
+    @Query("DELETE FROM reports")
+    fun dropReportsBank()
 }
