@@ -45,4 +45,18 @@
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
     </style>
+
+    <style name="dropdownMenu" parent="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+
+        <item name="textAppearanceLargePopupMenu">@style/TextAppearance.App.Subtitle1</item>
+        <item name="textAppearanceSmallPopupMenu">@style/TextAppearance.App.Subtitle1</item>
+        <item name="fontFamily">@font/montserratregular</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextAppearance.App.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/montserratregular</item>
+        <item name="android:fontFamily">@font/montserratregular</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 </resources>

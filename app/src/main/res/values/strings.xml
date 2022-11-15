@@ -13,10 +13,27 @@
     <string name="actions_card_title">Atividade</string>
     <string name="back_button_title">Voltar</string>
     <string name="share_report_button_title">Gerar Relatório</string>
+    <string name="title_action_hint">Nome</string>
+    <string name="hours_action_hint">Carga Horária</string>
+    <string name="initial_date_description">Data Inicial:</string>
+    <string name="final_date_description">Data Final:</string>
+    <string name="description_hint">Descrição/Justificativa</string>
+    <string name="goals_hint">Objetivos</string>
+    <string name="methodology_hint">Como a atividade será realizada? (Metodologia)</string>
+    <string name="results_hint">Resultados/Produtos esperados com a atividade</string>
+    <string name="evaluation_methodology_hint">Metodologia de avaliação da atividade pelo grupo</string>
+    <string name="evaluation_complete_default">Plenamente Desenvolvido</string>
+    <string name="evaluation_action_hint">Relate os aspectos/Avaliação Atividade</string>
+    <string name="add_action_input">Adicionar Atividade</string>
 
     <!--Add Action Screen strings-->
     <string name="new_action_title">Nova Atividade</string>
     <string name="dd_mm_yyyy_date_formatter">"%02d/%02d/%04d"</string>
+    <string-array name="options_evaluated">
+        <item>Plenamente Desenvolvido</item>
+        <item>Parcialmente Desenvolvido</item>
+        <item>Não Desenvolvido</item>
+    </string-array>
 
     <!--Utils strings-->
     <string name="delete_recycler_input">Deletar</string>
@@ -28,4 +45,5 @@
 
     <!--Info messages strings-->
     <string name="empty_reports_message">Nenhum relatório encontrado</string>
+
 </resources>

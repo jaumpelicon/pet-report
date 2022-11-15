@@ -14,7 +14,7 @@
             tools:ignore="UselessParent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-               android:id="@+id/default_contraintLayout"
+                android:id="@+id/default_contraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:context=".features.addActionScreen.AddActionFragment">
@@ -46,8 +46,8 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:hint="Nome"
+                    android:layout_marginEnd="16dp"
+                    android:hint="@string/title_action_hint"
                     android:paddingVertical="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/title_create_action_textView"
@@ -64,8 +64,8 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:hint="Carga Horária"
+                    android:layout_marginEnd="16dp"
+                    android:hint="@string/hours_action_hint"
                     android:paddingVertical="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/title_create_action_textView"
@@ -83,7 +83,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserratbold"
                     android:padding="16dp"
-                    android:text="Data Inicial:"
+                    android:text="@string/initial_date_description"
                     app:layout_constraintEnd_toStartOf="@+id/final_date_textView"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="@+id/hours_action_textInputLayout"
@@ -108,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserratbold"
                     android:padding="16dp"
-                    android:text="Data Final:"
+                    android:text="@string/final_date_description"
                     app:layout_constraintEnd_toEndOf="@+id/hours_action_textInputLayout"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/initial_date_textView"
@@ -133,8 +133,8 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="144dp"
-                    android:layout_marginEnd="8dp"
-                    android:hint="Descrição/Justificativa"
+                    android:layout_marginEnd="16dp"
+                    android:hint="@string/description_hint"
                     android:paddingVertical="4dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/title_create_action_textView"
@@ -143,7 +143,9 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/description_textInputEditText"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:gravity="top|start"
+                        android:inputType="textMultiLine"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -151,8 +153,8 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="144dp"
-                    android:layout_marginEnd="8dp"
-                    android:hint="Objetivos"
+                    android:layout_marginEnd="16dp"
+                    android:hint="@string/goals_hint"
                     android:paddingVertical="4dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/title_create_action_textView"
@@ -161,7 +163,9 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/goals_textInputEditText"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:gravity="top|start"
+                        android:inputType="textMultiLine"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -169,8 +173,8 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="144dp"
-                    android:layout_marginEnd="8dp"
-                    android:hint="Como a atividade será realizada? (Metodologia)"
+                    android:layout_marginEnd="16dp"
+                    android:hint="@string/methodology_hint"
                     android:paddingVertical="4dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/title_create_action_textView"
@@ -179,10 +183,107 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/methodology_textInputEditText"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:gravity="top|start"
+                        android:inputType="textMultiLine"/>
                 </com.google.android.material.textfield.TextInputLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/results_textInputLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="144dp"
+                    android:layout_marginEnd="16dp"
+                    android:hint="@string/results_hint"
+                    android:paddingVertical="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/title_create_action_textView"
+                    app:layout_constraintTop_toBottomOf="@+id/methodology_textInputLayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/results_textInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="top|start"
+                        android:inputType="textMultiLine"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/evaluation_methodology_textInputLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="144dp"
+                    android:layout_marginEnd="16dp"
+                    android:hint="@string/evaluation_methodology_hint"
+                    android:paddingVertical="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/title_create_action_textView"
+                    app:layout_constraintTop_toBottomOf="@+id/results_textInputLayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/evaluation_methodology_textInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="top|start"
+                        android:inputType="textMultiLine"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/evaluation_autoComplete_textInputLayout"
+                    style="@style/dropdownMenu"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="@+id/evaluation_methodology_textInputLayout"
+                    app:layout_constraintStart_toStartOf="@+id/evaluation_methodology_textInputLayout"
+                    app:layout_constraintTop_toBottomOf="@id/evaluation_methodology_textInputLayout">
+
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/evaluation_autoComplete_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:fontFamily="@font/montserratregular"
+                        android:gravity="center"
+                        android:inputType="none"
+                        android:padding="12dp"
+                        android:text="@string/evaluation_complete_default"
+                        android:textAlignment="center"
+                        android:textColor="@color/primaryColor" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/evaluation_action_textInputLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="144dp"
+                    android:layout_marginEnd="16dp"
+                    android:hint="@string/evaluation_action_hint"
+                    android:paddingVertical="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/title_create_action_textView"
+                    app:layout_constraintTop_toBottomOf="@+id/evaluation_autoComplete_textInputLayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/evaluation_action_textInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="top|start"
+                        android:inputType="textMultiLine"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_marginVertical="16dp"
+                    android:text="@string/add_action_input"
+                    android:backgroundTint="@color/primaryColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/evaluation_action_textInputLayout"
+                    app:layout_constraintStart_toStartOf="@id/evaluation_action_textInputLayout"
+                    app:layout_constraintTop_toBottomOf="@id/evaluation_action_textInputLayout" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </LinearLayout>
 </layout>

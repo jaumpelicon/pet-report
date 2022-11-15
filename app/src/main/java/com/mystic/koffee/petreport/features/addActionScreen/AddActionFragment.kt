@@ -3,6 +3,7 @@ package com.mystic.koffee.petreport.features.addActionScreen
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -32,6 +33,14 @@ class AddActionFragment : Fragment(R.layout.fragment_add_action) {
         setupInitialDateTextView()
         setupFinalDateTextView()
         setupHideKeyboard()
+        setupMaterialAutoComplete()
+    }
+
+    private fun setupMaterialAutoComplete() {
+        val optionsEvaluated = resources.getStringArray(R.array.options_evaluated)
+        val adapter = ArrayAdapter(requireContext(),
+            android.R.layout.simple_list_item_1, optionsEvaluated)
+        binding.evaluationAutoCompleteTextView.setAdapter(adapter)
     }
 
     private fun setupBackButton() {
