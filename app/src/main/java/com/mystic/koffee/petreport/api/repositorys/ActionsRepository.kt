@@ -13,7 +13,7 @@ import javax.inject.Inject
 interface ActionsRepositoryInterface {
     suspend fun insertAction(action: ActionsModel): Flow<ResponseState<Unit>>
     suspend fun removeActions(actionId: Long): Flow<ResponseState<Unit>>
-    suspend fun getAllActions(): Flow<ResponseState<List<ActionsModel>>>
+    suspend fun getAllActions(reportId: Long): Flow<ResponseState<List<ActionsModel>>>
 }
 
 class ActionsRepository @Inject constructor(private val daoRepository: ActionsDao) :
@@ -41,10 +41,10 @@ class ActionsRepository @Inject constructor(private val daoRepository: ActionsDa
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun getAllActions(): Flow<ResponseState<List<ActionsModel>>> {
+    override suspend fun getAllActions(reportId: Long): Flow<ResponseState<List<ActionsModel>>> {
         return flow {
             try {
-                val actionsList = daoRepository.getAllActions()
+                val actionsList = daoRepository.getAllActions(reportId)
                 emit(ResponseState.Success(actionsList))
             } catch (error: SQLiteException) {
                 emit(ResponseState.Error(error))

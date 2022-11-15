@@ -69,7 +69,7 @@ class ActionsAdapter (
     }
 
     private fun executeDelete() {
-        listReports.filter { it.selected }.forEach { deleteCallback(it.id) }
+        listReports.filter { it.selected }.forEach { deleteCallback(it.actionId) }
         listReports.removeAll(listReports.filter { it.selected }.toSet())
         notifyDataSetChanged()
         currentSelectPosition = -1
@@ -78,9 +78,9 @@ class ActionsAdapter (
 
     companion object DiffUtilCallback : DiffUtil.ItemCallback<ActionsModel>() {
         override fun areItemsTheSame(oldItem: ActionsModel, newItem: ActionsModel) =
-            oldItem.id == newItem.id
+            oldItem == newItem
 
         override fun areContentsTheSame(oldItem: ActionsModel, newItem: ActionsModel) =
-            oldItem.id == newItem.id
+            oldItem == newItem
     }
 }

@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.appcompat.view.ActionMode
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -19,6 +20,7 @@ import com.mystic.koffee.petreport.features.actions.ActionsViewModel
 import com.mystic.koffee.petreport.features.actions.actionsReportScreen.adapter.ActionsAdapter
 import com.mystic.koffee.petreport.features.actions.addActionScreen.models.ActionsModel
 import com.mystic.koffee.petreport.models.ViewState
+import com.mystic.koffee.petreport.support.Constants.NAVIGATION_ID_ARGUMENTS
 import com.mystic.koffee.petreport.support.Constants.NAVIGATION_TITLE_ARGUMENTS
 import com.mystic.koffee.petreport.support.ui.GenericChoiceDialog
 import com.mystic.koffee.petreport.support.utils.CreateSupportAction
@@ -40,6 +42,11 @@ class ActionsReportFragment : Fragment(R.layout.fragment_actions_report) {
         setup()
         observeCoroutines()
     }
+
+    override fun onStart() {
+        super.onStart()
+        didRefresh()
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -50,7 +57,6 @@ class ActionsReportFragment : Fragment(R.layout.fragment_actions_report) {
         setupBackButton()
         setupFloatActionButton()
         setupRefreshState()
-        //TODO GENERATE REPORT
     }
 
     private fun setupTitle() {
@@ -68,8 +74,9 @@ class ActionsReportFragment : Fragment(R.layout.fragment_actions_report) {
     }
 
     private fun setupFloatActionButton() {
+        val reportId = bundleOf(NAVIGATION_ID_ARGUMENTS to arguments?.getLong(NAVIGATION_ID_ARGUMENTS))
         binding.addActionFloatingActionButton.setOnClickListener {
-            findNavController().navigate(R.id.action_ActionsReportsFragment_to_addActionFragment2)
+            findNavController().navigate(R.id.action_ActionsReportsFragment_to_addActionFragment2, reportId)
         }
     }
 
@@ -118,7 +125,7 @@ class ActionsReportFragment : Fragment(R.layout.fragment_actions_report) {
 
     private fun didRefresh() {
         changeRefreshVisibility(true)
-        viewModel.getActions()
+        arguments?.getLong(NAVIGATION_ID_ARGUMENTS)?.let { viewModel.getActions(it) }
     }
 
     private fun didClickedDeleteReport(actionId: Long) {
@@ -154,6 +161,7 @@ class ActionsReportFragment : Fragment(R.layout.fragment_actions_report) {
     private fun handleSuccessGetActions(actionsList: MutableList<ActionsModel>) {
         if (actionsList.isEmpty()) {
             showEmptyScreen(true)
+            changeRefreshVisibility(false)
         } else {
             showEmptyScreen(false)
             setupAdapter(actionsList)

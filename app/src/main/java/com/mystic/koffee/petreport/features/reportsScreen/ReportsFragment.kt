@@ -18,6 +18,7 @@ import com.mystic.koffee.petreport.databinding.FragmentReportsBinding
 import com.mystic.koffee.petreport.features.reportsScreen.adapter.ReportsScreenAdapter
 import com.mystic.koffee.petreport.features.reportsScreen.models.ReportsModel
 import com.mystic.koffee.petreport.models.ViewState
+import com.mystic.koffee.petreport.support.Constants.NAVIGATION_ID_ARGUMENTS
 import com.mystic.koffee.petreport.support.Constants.NAVIGATION_TITLE_ARGUMENTS
 import com.mystic.koffee.petreport.support.extension.getDate
 import com.mystic.koffee.petreport.support.ui.AddReportDialog
@@ -119,7 +120,7 @@ class ReportsFragment : Fragment(R.layout.fragment_reports) {
     }
 
     private fun didClickedShowReport(reportFile: ReportsModel) {
-        navigateToReportDetails(reportFile.title)
+        navigateToReportDetails(reportFile.title, reportFile.reportId)
     }
 
     private fun addReport(title: String) {
@@ -248,8 +249,8 @@ class ReportsFragment : Fragment(R.layout.fragment_reports) {
         ).show(childFragmentManager, null)
     }
 
-    private fun navigateToReportDetails(titleArguments: String) {
-        val arguments = bundleOf(NAVIGATION_TITLE_ARGUMENTS to titleArguments)
+    private fun navigateToReportDetails(reportTitle: String, reportId: Long) {
+        val arguments = bundleOf(NAVIGATION_ID_ARGUMENTS to reportId, NAVIGATION_TITLE_ARGUMENTS to reportTitle)
         findNavController().navigate(R.id.action_ReportsFragment_to_ActionsReportsFragment, arguments)
     }
 }

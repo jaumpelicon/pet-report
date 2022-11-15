@@ -20,17 +20,21 @@
         android:name="com.mystic.koffee.petreport.features.actions.actionsReportScreen.ActionsReportFragment"
         android:label="ActionsReportsScreen"
         tools:layout="@layout/fragment_actions_report">
-        <argument
-            android:name="actions_report_title"
-            android:defaultValue="@null"
-            app:argType="string"
-            app:nullable="true" />
         <action
             android:id="@+id/action_ActionsReportsFragment_to_addActionFragment2"
             app:destination="@id/addActionFragment" />
         <action
             android:id="@+id/action_ActionsReportsFragment_to_ReportsFragment"
             app:destination="@id/ReportsFragment" />
+        <argument
+            android:name="report_title"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="report_id"
+            app:argType="long"
+            android:defaultValue="0L" />
     </fragment>
 
     <fragment
@@ -41,5 +45,14 @@
         <action
             android:id="@+id/action_addActionFragment_to_ActionsReportsFragment"
             app:destination="@id/ActionsReportsFragment" />
+        <argument
+            android:name="report_title"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="report_id"
+            app:argType="long"
+            android:defaultValue="0L" />
     </fragment>
 </navigation>

@@ -24,10 +24,6 @@ class ActionsViewModel @Inject constructor(private val actionsRepository: Action
     val deleteActionState get() = _deleteActionState.asStateFlow()
     private var _deleteActionState = MutableStateFlow<ViewState?>(null)
 
-    init {
-        getActions()
-    }
-
     fun insertAction(action: ActionsModel) {
         viewModelScope.launch {
             actionsRepository.insertAction(action).onStart {
@@ -45,9 +41,9 @@ class ActionsViewModel @Inject constructor(private val actionsRepository: Action
         }
     }
 
-    fun getActions() {
+    fun getActions(reportId: Long) {
         viewModelScope.launch {
-            actionsRepository.getAllActions().onStart {
+            actionsRepository.getAllActions(reportId).onStart {
                 _getActionsState.value = ViewState.Loading
             }.collect { state ->
                 when (state) {

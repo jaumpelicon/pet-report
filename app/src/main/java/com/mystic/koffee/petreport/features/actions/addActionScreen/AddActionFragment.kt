@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -18,6 +19,7 @@ import com.mystic.koffee.petreport.databinding.FragmentAddActionBinding
 import com.mystic.koffee.petreport.features.actions.ActionsViewModel
 import com.mystic.koffee.petreport.features.actions.addActionScreen.models.ActionsModel
 import com.mystic.koffee.petreport.models.ViewState
+import com.mystic.koffee.petreport.support.Constants.NAVIGATION_ID_ARGUMENTS
 import com.mystic.koffee.petreport.support.extension.hideKeyboard
 import com.mystic.koffee.petreport.support.extension.toString
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +27,7 @@ import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.ZoneId
 import java.time.ZoneOffset
+import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class AddActionFragment : Fragment(R.layout.fragment_add_action) {
@@ -32,6 +35,7 @@ class AddActionFragment : Fragment(R.layout.fragment_add_action) {
     private var _binding: FragmentAddActionBinding? = null
     private val binding get() = _binding!!
     private val viewModel: ActionsViewModel by viewModels()
+    private var reportId by Delegates.notNull<Long>()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,8 +56,10 @@ class AddActionFragment : Fragment(R.layout.fragment_add_action) {
 
     private fun setupMaterialAutoComplete() {
         val optionsEvaluated = resources.getStringArray(R.array.options_evaluated)
-        val adapter = ArrayAdapter(requireContext(),
-            android.R.layout.simple_list_item_1, optionsEvaluated)
+        val adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_list_item_1, optionsEvaluated
+        )
         binding.evaluationAutoCompleteTextView.setAdapter(adapter)
     }
 
@@ -103,7 +109,11 @@ class AddActionFragment : Fragment(R.layout.fragment_add_action) {
 
     private fun addAction() {
         //TODO VALIDATE IF NOT EMPTY
+        arguments?.getLong(NAVIGATION_ID_ARGUMENTS)?.let {
+            reportId = it
+        }
         val action = ActionsModel(
+            reportId,
             binding.titleActionTextInputEditText.text.toString(),
             binding.hoursActionTextInputEditText.text.toString(),
             binding.initialDateTextView.text.toString(),
@@ -114,11 +124,11 @@ class AddActionFragment : Fragment(R.layout.fragment_add_action) {
             binding.resultsTextInputEditText.text.toString(),
             binding.evaluationMethodologyTextInputEditText.text.toString(),
             binding.evaluationActionTextInputEditText.toString()
-            )
+        )
         viewModel.insertAction(action)
     }
 
-    private fun observeCoroutines(){
+    private fun observeCoroutines() {
         observeInsertReports()
     }
 
@@ -138,7 +148,8 @@ class AddActionFragment : Fragment(R.layout.fragment_add_action) {
     }
 
     private fun handleSuccessInsertAction() {
-        findNavController().navigate(R.id.action_addActionFragment_to_ActionsReportsFragment)
+        val arguments = bundleOf(NAVIGATION_ID_ARGUMENTS to reportId)
+        findNavController().navigate(R.id.action_addActionFragment_to_ActionsReportsFragment,arguments)
     }
 
     private fun handleErrorInsertAction() {

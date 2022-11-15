@@ -69,7 +69,7 @@ class ReportsScreenAdapter (
     }
 
     private fun executeDelete() {
-        listReports.filter { it.selected }.forEach { deleteCallback(it.id) }
+        listReports.filter { it.selected }.forEach { deleteCallback(it.reportId) }
         listReports.removeAll(listReports.filter { it.selected }.toSet())
         notifyDataSetChanged()
         currentSelectPosition = -1
@@ -78,9 +78,9 @@ class ReportsScreenAdapter (
 
     companion object DiffUtilCallback : DiffUtil.ItemCallback<ReportsModel>() {
         override fun areItemsTheSame(oldItem: ReportsModel, newItem: ReportsModel) =
-            oldItem.id == newItem.id
+            oldItem == newItem
 
         override fun areContentsTheSame(oldItem: ReportsModel, newItem: ReportsModel) =
-            oldItem.id == newItem.id
+            oldItem == newItem
     }
 }

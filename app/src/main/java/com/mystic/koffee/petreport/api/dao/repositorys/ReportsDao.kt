@@ -14,10 +14,10 @@ interface ReportsDao {
     fun insertReport(report: ReportsModel)
 
     @Transaction
-    @Query("DELETE FROM reports_model WHERE id = :reportId")
+    @Query("DELETE FROM reports WHERE reportId = :reportId")
     suspend fun removeReport(reportId: Long): Int
 
     @Transaction
-    @Query("SELECT * FROM reports_model ORDER BY strftime(date) DESC")
+    @Query("SELECT * FROM reports ORDER BY strftime(date) DESC")
     fun getAllReports(): List<ReportsModel>
 }

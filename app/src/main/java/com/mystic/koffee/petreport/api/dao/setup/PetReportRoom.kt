@@ -13,8 +13,7 @@ import com.mystic.koffee.petreport.features.reportsScreen.models.ReportsModel
 @Database(
     version = 1,
     entities = [ReportsModel::class, ActionsModel::class],
-    autoMigrations = [AutoMigration(from = 1, to = 2)],
-    exportSchema = true
+    exportSchema = false
 )
 abstract class PetReportRoom : RoomDatabase() {
     abstract val reportDao: ReportsDao
@@ -26,16 +25,13 @@ abstract class PetReportRoom : RoomDatabase() {
         private var INSTANCE: PetReportRoom? = null
 
         fun getInstance(context: Context): PetReportRoom {
-
             synchronized(this) {
-
                 var instance = INSTANCE
-
                 if (instance == null) {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         PetReportRoom::class.java,
-                        "pet_report_database"
+                        "pet_report_database_room"
                     ).build()
                     INSTANCE = instance
                 }

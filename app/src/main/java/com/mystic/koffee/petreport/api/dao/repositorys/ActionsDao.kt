@@ -14,10 +14,10 @@ interface ActionsDao {
     fun insertAction(action: ActionsModel)
 
     @Transaction
-    @Query("DELETE FROM actions_model WHERE id = :actionId")
+    @Query("DELETE FROM actions WHERE actionId = :actionId")
     suspend fun removeAction(actionId: Long): Int
 
     @Transaction
-    @Query("SELECT * FROM actions_model ORDER BY strftime(initialDate) DESC")
-    fun getAllActions(): List<ActionsModel>
+    @Query("SELECT * FROM actions WHERE fkReportId = :reportId ORDER BY strftime(initialDate) DESC")
+    fun getAllActions(reportId: Long): List<ActionsModel>
 }
