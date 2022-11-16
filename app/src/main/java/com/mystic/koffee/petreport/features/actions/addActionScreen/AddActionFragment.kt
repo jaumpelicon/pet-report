@@ -72,8 +72,9 @@ class AddActionFragment : Fragment(R.layout.fragment_add_action) {
             binding.resultsTextInputEditText.setText(action.results)
             binding.evaluationMethodologyTextInputEditText.setText(action.evaluationMethodology)
             binding.evaluationActionTextInputEditText.setText(action.actionEvaluation)
+            binding.addActionButton.isVisible = false //TODO CHANGE FOR DELETE BUTTON
         }
-        binding.addActionButton.isVisible = false //TODO CHANGE FOR DELETE BUTTON
+
     }
 
     private fun setupMaterialAutoComplete() {
