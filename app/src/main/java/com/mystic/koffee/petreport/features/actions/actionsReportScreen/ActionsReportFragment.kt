@@ -18,16 +18,21 @@ import com.mystic.koffee.petreport.R
 import com.mystic.koffee.petreport.databinding.FragmentActionsReportBinding
 import com.mystic.koffee.petreport.features.actions.ActionsViewModel
 import com.mystic.koffee.petreport.features.actions.actionsReportScreen.adapter.ActionsAdapter
-import com.mystic.koffee.petreport.features.actions.addActionScreen.AddActionFragment
 import com.mystic.koffee.petreport.features.actions.addActionScreen.models.ActionsModel
+import com.mystic.koffee.petreport.features.share.ShareViewModel
 import com.mystic.koffee.petreport.models.ViewState
 import com.mystic.koffee.petreport.support.Constants
 import com.mystic.koffee.petreport.support.Constants.NAVIGATION_ID_ARGUMENTS
 import com.mystic.koffee.petreport.support.Constants.NAVIGATION_TITLE_ARGUMENTS
+import com.mystic.koffee.petreport.support.extension.setPermissionUri
+import com.mystic.koffee.petreport.support.extension.shareFileIntent
 import com.mystic.koffee.petreport.support.ui.GenericChoiceDialog
 import com.mystic.koffee.petreport.support.utils.CreateSupportAction
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.io.File
+import java.net.URI
+import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class ActionsReportFragment : Fragment(R.layout.fragment_actions_report) {
@@ -36,7 +41,9 @@ class ActionsReportFragment : Fragment(R.layout.fragment_actions_report) {
     private val binding get() = _binding!!
     private var actionMode: ActionMode? = null
     private lateinit var adapter: ActionsAdapter
+    private var reportId by Delegates.notNull<Long>()
     private val viewModel: ActionsViewModel by viewModels()
+    private val shareViewModel: ShareViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,9 +64,23 @@ class ActionsReportFragment : Fragment(R.layout.fragment_actions_report) {
 
     private fun setup() {
         setupTitle()
+        setupReportId()
         setupBackButton()
         setupFloatActionButton()
         setupRefreshState()
+        setupExportReportButton()
+    }
+
+    private fun setupReportId() {
+        arguments?.getLong(NAVIGATION_ID_ARGUMENTS)?.let {
+            reportId = it
+        }
+    }
+
+    private fun setupExportReportButton() {
+        binding.exportReportButton.setOnClickListener {
+            shareViewModel.shareData(requireContext(), reportId)
+        }
     }
 
     private fun setupTitle() {
@@ -145,13 +166,49 @@ class ActionsReportFragment : Fragment(R.layout.fragment_actions_report) {
         navigateToReportDetails(args)
     }
 
+    private fun didShareCsvIntent(csvUri: URI) {
+        val file = File(csvUri.path)
+        val intent = shareFileIntent(requireContext(), file)
+        setPermissionUri(requireContext(), file, intent)
+        activity?.startActivity(intent)
+    }
+
     private fun navigateToReportDetails(arguments: Bundle) {
-        findNavController().navigate(R.id.action_ActionsReportsFragment_to_addActionFragment2,arguments)
+        findNavController().navigate(
+            R.id.action_ActionsReportsFragment_to_addActionFragment2,
+            arguments
+        )
     }
 
     private fun observeCoroutines() {
         observeGetActions()
         observeDeleteActions()
+        observeShareState()
+    }
+
+    private fun observeShareState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            shareViewModel.shareState.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collect { state ->
+                    when (state) {
+                        is ViewState.Success -> handleSuccessShareState(state)
+                        is ViewState.Loading -> handleLoading()
+                        is ViewState.Error -> handleErrorShareState(state)
+                        else -> {}
+                    }
+                }
+        }
+    }
+
+    private fun handleSuccessShareState(state: ViewState.Success<URI>) {
+        changeRefreshVisibility(false)
+        didShareCsvIntent(state.data)
+        showExportSuccessToast()
+    }
+
+    private fun handleErrorShareState(state: ViewState.Error) {
+        changeRefreshVisibility(false)
+        Toast.makeText(requireContext(), state.error.toString(), Toast.LENGTH_SHORT).show()
     }
 
     private fun observeGetActions() {
@@ -229,5 +286,10 @@ class ActionsReportFragment : Fragment(R.layout.fragment_actions_report) {
 
     private fun changeRefreshVisibility(visible: Boolean) {
         binding.customSwipeRefresh.isRefreshing = visible
+    }
+
+    private fun showExportSuccessToast() {
+        Toast.makeText(requireContext(), "Exportado com sucesso", Toast.LENGTH_LONG)
+            .show()
     }
 }

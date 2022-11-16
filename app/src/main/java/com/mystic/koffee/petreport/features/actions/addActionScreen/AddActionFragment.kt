@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -72,6 +73,7 @@ class AddActionFragment : Fragment(R.layout.fragment_add_action) {
             binding.evaluationMethodologyTextInputEditText.setText(action.evaluationMethodology)
             binding.evaluationActionTextInputEditText.setText(action.actionEvaluation)
         }
+        binding.addActionButton.isVisible = false //TODO CHANGE FOR DELETE BUTTON
     }
 
     private fun setupMaterialAutoComplete() {
@@ -161,6 +163,7 @@ class AddActionFragment : Fragment(R.layout.fragment_add_action) {
                         when (it) {
                             is ViewState.Success<*> -> handleSuccessInsertAction()
                             is ViewState.Error -> handleErrorInsertAction()
+                            else -> {}
                         }
                     }
                 }

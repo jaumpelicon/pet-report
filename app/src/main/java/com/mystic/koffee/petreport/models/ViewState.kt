@@ -1,7 +1,7 @@
 package com.mystic.koffee.petreport.models
 
-interface ViewState {
-    object Loading : ViewState
-    data class Error(val error: Throwable) : ViewState
-    data class Success<out T>(val data: T) : ViewState
+sealed class ViewState<out T> {
+    object Loading : ViewState<Nothing>()
+    data class Error(val error: Throwable) : ViewState<Nothing>()
+    data class Success<out T>(val data: T) : ViewState<T>()
 }

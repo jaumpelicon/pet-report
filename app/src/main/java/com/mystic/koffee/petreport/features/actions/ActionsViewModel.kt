@@ -18,11 +18,11 @@ class ActionsViewModel @Inject constructor(private val actionsRepository: Action
     ViewModel() {
 
     val insertActionsState get() = _insertActionsState.asStateFlow()
-    private var _insertActionsState = MutableStateFlow<ViewState?>(null)
+    private var _insertActionsState = MutableStateFlow<ViewState<Unit>?>(null)
     val getActionsState get() = _getActionsState.asStateFlow()
-    private var _getActionsState = MutableStateFlow<ViewState?>(null)
+    private var _getActionsState = MutableStateFlow<ViewState<List<ActionsModel>>?>(null)
     val deleteActionState get() = _deleteActionState.asStateFlow()
-    private var _deleteActionState = MutableStateFlow<ViewState?>(null)
+    private var _deleteActionState = MutableStateFlow<ViewState<Unit>?>(null)
 
     fun insertAction(action: ActionsModel) {
         viewModelScope.launch {

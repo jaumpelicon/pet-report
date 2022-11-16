@@ -19,11 +19,11 @@ class ReportsViewModel @Inject constructor(private val reportsRepository: Report
     ViewModel() {
 
     val insertReportsState get() = _insertReportsState.asStateFlow()
-    private var _insertReportsState = MutableStateFlow<ViewState?>(null)
+    private var _insertReportsState = MutableStateFlow<ViewState<Unit>?>(null)
     val getReportsState get() = _getReportsState.asStateFlow()
-    private var _getReportsState = MutableStateFlow<ViewState?>(null)
+    private var _getReportsState = MutableStateFlow<ViewState<List<ReportsModel>>?>(null)
     val deleteReportState get() = _deleteReportState.asStateFlow()
-    private var _deleteReportState = MutableStateFlow<ViewState?>(null)
+    private var _deleteReportState = MutableStateFlow<ViewState<Unit>?>(null)
 
     init {
         getReports()
