@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserratregular"
                 android:text="Atividade"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="44dp"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toTopOf="@+id/see_detail_imageView"
                 app:layout_constraintStart_toStartOf="@+id/title_action_card_textView"

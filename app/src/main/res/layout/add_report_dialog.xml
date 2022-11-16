@@ -53,7 +53,7 @@
 
         <Button
             android:id="@+id/add_report_button"
-            style="@style/buttonWithBorder"
+            style="@style/buttonWithoutBorder"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"

@@ -54,5 +54,10 @@
             android:name="report_id"
             app:argType="long"
             android:defaultValue="0L" />
+        <argument
+            android:name="action_arguments"
+            app:argType="com.mystic.koffee.petreport.features.actions.addActionScreen.models.ActionsModel"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 </navigation>

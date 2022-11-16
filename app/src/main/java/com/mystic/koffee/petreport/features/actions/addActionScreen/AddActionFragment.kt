@@ -2,6 +2,7 @@ package com.mystic.koffee.petreport.features.actions.addActionScreen
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.Editable
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -19,6 +20,7 @@ import com.mystic.koffee.petreport.databinding.FragmentAddActionBinding
 import com.mystic.koffee.petreport.features.actions.ActionsViewModel
 import com.mystic.koffee.petreport.features.actions.addActionScreen.models.ActionsModel
 import com.mystic.koffee.petreport.models.ViewState
+import com.mystic.koffee.petreport.support.Constants.ACTION_ID_ARGUMENTS
 import com.mystic.koffee.petreport.support.Constants.NAVIGATION_ID_ARGUMENTS
 import com.mystic.koffee.petreport.support.extension.hideKeyboard
 import com.mystic.koffee.petreport.support.extension.toString
@@ -52,6 +54,24 @@ class AddActionFragment : Fragment(R.layout.fragment_add_action) {
         setupHideKeyboard()
         setupMaterialAutoComplete()
         setupAddActionButton()
+        setupHasActionCreated()
+    }
+
+    private fun setupHasActionCreated() {
+        //TODO IF NOT NULL ENABLE EDIT
+        val action = arguments?.getParcelable<ActionsModel>(ACTION_ID_ARGUMENTS)
+        if (action!= null){
+            binding.titleActionTextInputEditText.setText(action.title)
+            binding.hoursActionTextInputEditText.setText(action.workload)
+            binding.initialDateTextView.text = action.initialDate
+            binding.finalDateTextView.text = action.finalDate
+            binding.descriptionTextInputEditText.setText(action.description)
+            binding.goalsTextInputEditText.setText(action.goals)
+            binding.methodologyTextInputEditText.setText(action.methodology)
+            binding.resultsTextInputEditText.setText(action.results)
+            binding.evaluationMethodologyTextInputEditText.setText(action.evaluationMethodology)
+            binding.evaluationActionTextInputEditText.setText(action.actionEvaluation)
+        }
     }
 
     private fun setupMaterialAutoComplete() {
@@ -123,7 +143,7 @@ class AddActionFragment : Fragment(R.layout.fragment_add_action) {
             binding.methodologyTextInputEditText.text.toString(),
             binding.resultsTextInputEditText.text.toString(),
             binding.evaluationMethodologyTextInputEditText.text.toString(),
-            binding.evaluationActionTextInputEditText.toString()
+            binding.evaluationActionTextInputEditText.text.toString()
         )
         viewModel.insertAction(action)
     }

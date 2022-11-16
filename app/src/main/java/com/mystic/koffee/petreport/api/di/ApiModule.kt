@@ -1,4 +1,4 @@
-package com.mystic.koffee.petreport.api
+package com.mystic.koffee.petreport.api.di
 
 import com.mystic.koffee.petreport.api.dao.repositorys.ActionsDao
 import com.mystic.koffee.petreport.api.dao.repositorys.ReportsDao

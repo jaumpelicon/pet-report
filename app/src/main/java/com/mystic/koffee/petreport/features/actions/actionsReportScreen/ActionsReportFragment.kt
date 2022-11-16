@@ -18,8 +18,10 @@ import com.mystic.koffee.petreport.R
 import com.mystic.koffee.petreport.databinding.FragmentActionsReportBinding
 import com.mystic.koffee.petreport.features.actions.ActionsViewModel
 import com.mystic.koffee.petreport.features.actions.actionsReportScreen.adapter.ActionsAdapter
+import com.mystic.koffee.petreport.features.actions.addActionScreen.AddActionFragment
 import com.mystic.koffee.petreport.features.actions.addActionScreen.models.ActionsModel
 import com.mystic.koffee.petreport.models.ViewState
+import com.mystic.koffee.petreport.support.Constants
 import com.mystic.koffee.petreport.support.Constants.NAVIGATION_ID_ARGUMENTS
 import com.mystic.koffee.petreport.support.Constants.NAVIGATION_TITLE_ARGUMENTS
 import com.mystic.koffee.petreport.support.ui.GenericChoiceDialog
@@ -47,6 +49,7 @@ class ActionsReportFragment : Fragment(R.layout.fragment_actions_report) {
         super.onStart()
         didRefresh()
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -74,9 +77,13 @@ class ActionsReportFragment : Fragment(R.layout.fragment_actions_report) {
     }
 
     private fun setupFloatActionButton() {
-        val reportId = bundleOf(NAVIGATION_ID_ARGUMENTS to arguments?.getLong(NAVIGATION_ID_ARGUMENTS))
+        val reportId =
+            bundleOf(NAVIGATION_ID_ARGUMENTS to arguments?.getLong(NAVIGATION_ID_ARGUMENTS))
         binding.addActionFloatingActionButton.setOnClickListener {
-            findNavController().navigate(R.id.action_ActionsReportsFragment_to_addActionFragment2, reportId)
+            findNavController().navigate(
+                R.id.action_ActionsReportsFragment_to_addActionFragment2,
+                reportId
+            )
         }
     }
 
@@ -133,8 +140,13 @@ class ActionsReportFragment : Fragment(R.layout.fragment_actions_report) {
     }
 
     private fun didClickedShowReport(actionFile: ActionsModel) {
-//        TODO NAVIGATE TO ADD ACTION FRAGMENT AND ADD INFOS
-//        navigateToReportDetails(reportFile.title
+        val args = Bundle()
+        args.putParcelable(Constants.ACTION_ID_ARGUMENTS, actionFile)
+        navigateToReportDetails(args)
+    }
+
+    private fun navigateToReportDetails(arguments: Bundle) {
+        findNavController().navigate(R.id.action_ActionsReportsFragment_to_addActionFragment2,arguments)
     }
 
     private fun observeCoroutines() {
