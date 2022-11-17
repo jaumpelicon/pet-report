@@ -3,6 +3,7 @@ package com.mystic.koffee.petreport.features.actions.actionsReportScreen
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.appcompat.view.ActionMode
 import androidx.core.os.bundleOf
@@ -48,6 +49,12 @@ class ActionsReportFragment : Fragment(R.layout.fragment_actions_report) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentActionsReportBinding.bind(view)
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressedCallback)
         setup()
         observeCoroutines()
     }

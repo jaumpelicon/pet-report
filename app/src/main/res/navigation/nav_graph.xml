@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_reports">
         <action
             android:id="@+id/action_ReportsFragment_to_ActionsReportsFragment"
-            app:destination="@id/ActionsReportsFragment" />
+            app:destination="@id/ActionsReportsFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -22,10 +23,12 @@
         tools:layout="@layout/fragment_actions_report">
         <action
             android:id="@+id/action_ActionsReportsFragment_to_addActionFragment2"
-            app:destination="@id/addActionFragment" />
+            app:destination="@id/addActionFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_ActionsReportsFragment_to_ReportsFragment"
-            app:destination="@id/ReportsFragment" />
+            app:destination="@id/ReportsFragment"
+            app:popUpToInclusive="true" />
         <argument
             android:name="report_title"
             app:argType="string"
@@ -44,7 +47,8 @@
         tools:layout="@layout/fragment_add_action" >
         <action
             android:id="@+id/action_addActionFragment_to_ActionsReportsFragment"
-            app:destination="@id/ActionsReportsFragment" />
+            app:destination="@id/ActionsReportsFragment"
+            app:popUpToInclusive="false" />
         <argument
             android:name="report_title"
             app:argType="string"

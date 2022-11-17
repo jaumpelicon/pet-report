@@ -21,7 +21,7 @@ class ActionViewHolder (
     ) {
         with(binding) {
             titleActionCardTextView.text = action.title
-            seeDetailImageView.setOnClickListener {
+            binding.generalConstraintLayout.setOnClickListener {
                 itemClickCallback(action)
             }
             val colorSelectedInt: Int = context.getColor(R.color.itemSelected)

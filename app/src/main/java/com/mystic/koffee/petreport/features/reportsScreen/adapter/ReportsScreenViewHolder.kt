@@ -20,7 +20,7 @@ class ReportsScreenViewHolder(
     ) {
         with(binding) {
             titleReportCardTextView.text = report.title
-            seeDetailImageView.setOnClickListener {
+            binding.generalConstraintLayout.setOnClickListener {
                 itemClickCallback(report)
             }
             val colorSelectedInt: Int = context.getColor(R.color.itemSelected)
@@ -28,9 +28,9 @@ class ReportsScreenViewHolder(
             val colorBackgroundInt: Int = context.getColor(R.color.primaryBackGroundColor)
             val cslBackground = ColorStateList.valueOf(colorBackgroundInt)
             if (report.selected) {
-                binding.itemReportCardView.backgroundTintList = cslSelected
+                itemReportCardView.backgroundTintList = cslSelected
             } else {
-                binding.itemReportCardView.backgroundTintList = cslBackground
+                itemReportCardView.backgroundTintList = cslBackground
             }
         }
     }

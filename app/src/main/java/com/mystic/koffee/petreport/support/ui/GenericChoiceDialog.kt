@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.fragment.findNavController
 import com.mystic.koffee.petreport.databinding.GenericChoiceDialogBinding
 
 class GenericChoiceDialog(
@@ -21,6 +23,12 @@ class GenericChoiceDialog(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressedCallback)
         _binding = GenericChoiceDialogBinding.inflate(inflater, container, false)
         return binding.root
     }

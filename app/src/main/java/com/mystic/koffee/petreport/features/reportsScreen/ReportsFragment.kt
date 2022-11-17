@@ -3,6 +3,7 @@ package com.mystic.koffee.petreport.features.reportsScreen
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.view.ActionMode
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
@@ -41,7 +42,14 @@ class ReportsFragment : Fragment(R.layout.fragment_reports) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressedCallback)
         _binding = FragmentReportsBinding.bind(view)
+
         setup()
         observeCoroutines()
     }
@@ -50,6 +58,7 @@ class ReportsFragment : Fragment(R.layout.fragment_reports) {
         super.onDestroyView()
         _binding = null
     }
+
     /**
     Setup
      **/
