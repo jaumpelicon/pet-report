@@ -21,6 +21,8 @@ class CreateSupportAction (
             adapter.deleteItems()
             mode?.finish()
             return true
+        }else{
+            adapter.clearSelectedItems()
         }
         return false
     }
@@ -31,7 +33,6 @@ class CreateSupportAction (
 
     override fun onDestroyActionMode(mode: ActionMode?) {
         actionMode = null
-        adapter.clearSelectedItems()
         mode?.finish()
     }
 }

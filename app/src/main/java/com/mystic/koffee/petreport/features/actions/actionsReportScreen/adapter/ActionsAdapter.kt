@@ -73,9 +73,9 @@ class ActionsAdapter (
     private fun executeDelete() {
         listReports.filter { it.selected }.forEach { deleteCallback(it.actionId) }
         listReports.removeAll(listReports.filter { it.selected }.toSet())
-        notifyDataSetChanged()
         currentSelectPosition = -1
         clearSelectedItems()
+        notifyDataSetChanged()
     }
 
     companion object DiffUtilCallback : DiffUtil.ItemCallback<ActionsModel>() {
