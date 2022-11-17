@@ -1,5 +1,7 @@
 package com.mystic.koffee.petreport.features.reportsScreen.adapter
 
+import android.content.Context
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -14,16 +16,21 @@ class ReportsScreenViewHolder(
     fun bind(
         report: ReportsModel,
         itemClickCallback: (report: ReportsModel) -> Unit,
+        context: Context
     ) {
         with(binding) {
             titleReportCardTextView.text = report.title
             seeDetailImageView.setOnClickListener {
                 itemClickCallback(report)
             }
+            val colorSelectedInt: Int = context.getColor(R.color.itemSelected)
+            val cslSelected = ColorStateList.valueOf(colorSelectedInt)
+            val colorBackgroundInt: Int = context.getColor(R.color.primaryBackGroundColor)
+            val cslBackground = ColorStateList.valueOf(colorBackgroundInt)
             if (report.selected) {
-                binding.itemReportCardView.setBackgroundResource(R.color.itemSelected)
+                binding.itemReportCardView.backgroundTintList = cslSelected
             } else {
-                binding.itemReportCardView.setBackgroundResource(R.color.white)
+                binding.itemReportCardView.backgroundTintList = cslBackground
             }
         }
     }

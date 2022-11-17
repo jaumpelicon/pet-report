@@ -9,7 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primaryColor">#2F2984</color>
     <color name="primaryFadeColor">#E7E5FB</color>
-    <color name="primaryTextColor">#FF000000</color>
-    <color name="primaryBackGroundColor">#FFFFFFFF</color>
-    <color name="itemSelected">#4D007aff</color>
+    <color name="primaryTextColor">#FFFFFFFF</color>
+    <color name="itemSelected">#4D412174</color>
+    <color name="primaryBackGroundColor">#121212</color>
 </resources>

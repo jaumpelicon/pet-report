@@ -17,10 +17,12 @@ class CreateSupportActionMode(
     }
 
     override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
-        if (item?.itemId == R.id.menu_delete_action) {
-            adapter.deleteExams()
-            mode?.finish()
-            return true
+        when (item?.itemId ) {
+            R.id.menu_delete_action -> {
+                adapter.deleteItems()
+                mode?.finish()
+                return true
+            }
         }
         return false
     }
@@ -31,5 +33,7 @@ class CreateSupportActionMode(
 
     override fun onDestroyActionMode(mode: ActionMode?) {
         actionMode = null
+        adapter.clearSelectedItems()
+        mode?.finish()
     }
 }

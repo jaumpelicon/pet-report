@@ -1,5 +1,6 @@
 package com.mystic.koffee.petreport.features.reportsScreen.adapter
 
+import android.content.Context
 import android.util.SparseBooleanArray
 import android.view.ViewGroup
 import androidx.core.util.isNotEmpty
@@ -13,7 +14,8 @@ class ReportsScreenAdapter (
     private val deleteCallback: (reportId: Long) -> Unit,
     private val onItemLongClick: (reportId: Int) -> Unit,
     private val onItemClick: (reportId: Int) -> Unit,
-    private val dialogConfirmDelete: (acceptCallback: () -> Unit) -> Unit
+    private val dialogConfirmDelete: (acceptCallback: () -> Unit) -> Unit,
+    private val context : Context
 ) : RecyclerView.Adapter<ReportsScreenViewHolder>() {
 
     val selectedItems = SparseBooleanArray()
@@ -27,7 +29,7 @@ class ReportsScreenAdapter (
     }
 
     override fun onBindViewHolder(holder: ReportsScreenViewHolder, position: Int) {
-        holder.bind(listReports[position], showReportCallback)
+        holder.bind(listReports[position], showReportCallback,context)
         setupClickedItemsViewHolder(holder, position)
     }
 
@@ -56,11 +58,11 @@ class ReportsScreenAdapter (
         notifyItemChanged(position)
     }
 
-    fun deleteExams() {
+    fun deleteItems() {
         dialogConfirmDelete(::executeDelete)
     }
 
-    private fun clearSelectedExams() {
+    fun clearSelectedItems() {
         selectedItems.clear()
         listReports.filter { it.selected }.forEach {
             it.selected = false
@@ -73,7 +75,7 @@ class ReportsScreenAdapter (
         listReports.removeAll(listReports.filter { it.selected }.toSet())
         notifyDataSetChanged()
         currentSelectPosition = -1
-        clearSelectedExams()
+        clearSelectedItems()
     }
 
     companion object DiffUtilCallback : DiffUtil.ItemCallback<ReportsModel>() {

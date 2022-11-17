@@ -1,5 +1,6 @@
 package com.mystic.koffee.petreport.features.actions.actionsReportScreen.adapter
 
+import android.content.Context
 import android.util.SparseBooleanArray
 import android.view.ViewGroup
 import androidx.core.util.isNotEmpty
@@ -13,7 +14,8 @@ class ActionsAdapter (
     private val deleteCallback: (reportId: Long) -> Unit,
     private val onItemLongClick: (reportId: Int) -> Unit,
     private val onItemClick: (reportId: Int) -> Unit,
-    private val dialogConfirmDelete: (acceptCallback: () -> Unit) -> Unit
+    private val dialogConfirmDelete: (acceptCallback: () -> Unit) -> Unit,
+    private val context : Context
 ) : RecyclerView.Adapter<ActionViewHolder>() {
 
     val selectedItems = SparseBooleanArray()
@@ -27,7 +29,7 @@ class ActionsAdapter (
     }
 
     override fun onBindViewHolder(holder: ActionViewHolder, position: Int) {
-        holder.bind(listReports[position], showReportCallback)
+        holder.bind(listReports[position], showReportCallback,context)
         setupClickedItemsViewHolder(holder, position)
     }
 
@@ -56,11 +58,11 @@ class ActionsAdapter (
         notifyItemChanged(position)
     }
 
-    fun deleteExams() {
+    fun deleteItems() {
         dialogConfirmDelete(::executeDelete)
     }
 
-    private fun clearSelectedExams() {
+    fun clearSelectedItems() {
         selectedItems.clear()
         listReports.filter { it.selected }.forEach {
             it.selected = false
@@ -73,7 +75,7 @@ class ActionsAdapter (
         listReports.removeAll(listReports.filter { it.selected }.toSet())
         notifyDataSetChanged()
         currentSelectPosition = -1
-        clearSelectedExams()
+        clearSelectedItems()
     }
 
     companion object DiffUtilCallback : DiffUtil.ItemCallback<ActionsModel>() {

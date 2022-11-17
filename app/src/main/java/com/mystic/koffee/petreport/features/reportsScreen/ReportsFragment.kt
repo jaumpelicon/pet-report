@@ -75,7 +75,8 @@ class ReportsFragment : Fragment(R.layout.fragment_reports) {
             ::didClickedDeleteReport,
             ::onLongClicked,
             ::onItemClicked,
-            ::showConfirmDeleteDialog
+            ::showConfirmDeleteDialog,
+            requireContext()
         )
         binding.listRecyclerView.adapter = adapter
     }
