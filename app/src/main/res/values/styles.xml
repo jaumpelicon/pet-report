@@ -12,6 +12,13 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="popupMenu">
+        <item name="android:fontFamily">@font/montserratregular</item>
+        <item name="android:popupBackground">@drawable/popmenu_bg</item>
+        <item name="android:popupMenuStyle">@drawable/popmenu_bg</item>
+        <item name="android:popupElevation">20dp</item>
+    </style>
+
     <style name="buttonWithoutBorder">
         <item name="android:textColor">@color/white</item>
         <item name="android:padding">12dp</item>

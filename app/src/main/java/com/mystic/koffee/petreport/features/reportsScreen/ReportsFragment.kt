@@ -1,7 +1,11 @@
 package com.mystic.koffee.petreport.features.reportsScreen
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.view.ContextThemeWrapper
 import android.view.View
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.view.ActionMode
@@ -21,6 +25,7 @@ import com.mystic.koffee.petreport.features.reportsScreen.models.ReportsModel
 import com.mystic.koffee.petreport.models.ViewState
 import com.mystic.koffee.petreport.support.Constants.NAVIGATION_ID_ARGUMENTS
 import com.mystic.koffee.petreport.support.Constants.NAVIGATION_TITLE_ARGUMENTS
+import com.mystic.koffee.petreport.support.Constants.URL_POLICY
 import com.mystic.koffee.petreport.support.extension.getDate
 import com.mystic.koffee.petreport.support.ui.AddReportDialog
 import com.mystic.koffee.petreport.support.ui.GenericChoiceDialog
@@ -65,7 +70,39 @@ class ReportsFragment : Fragment(R.layout.fragment_reports) {
     private fun setup() {
         setupAddFloatActionButton()
         setupRefreshState()
+        setupMenu()
     }
+
+    private fun setupMenu() {
+        binding.menuImageView.setOnClickListener { view ->
+            val themeWrapper = ContextThemeWrapper(context, R.style.popupMenu)
+            val popupMenu = PopupMenu(themeWrapper, view)
+            popupMenu.inflate(R.menu.menu_home)
+            handlePopupMenu(popupMenu)
+            popupMenu.show()
+        }
+    }
+
+    private fun handlePopupMenu(popupMenu: PopupMenu) {
+        popupMenu.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.about_item -> startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(URL_POLICY)
+                    )
+                )
+                R.id.support_item -> startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(URL_POLICY)
+                    )
+                )
+            }
+            true
+        }
+    }
+
 
     private fun setupAddFloatActionButton() {
         binding.addReportFloatingActionButton.setOnClickListener {
