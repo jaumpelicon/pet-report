@@ -75,7 +75,7 @@ class ReportsFragment : Fragment(R.layout.fragment_reports) {
 
     private fun setupMenu() {
         binding.menuImageView.setOnClickListener { view ->
-            val themeWrapper = ContextThemeWrapper(context, R.style.popupMenu)
+            val themeWrapper = ContextThemeWrapper(context, R.style.PopupMenuStyle)
             val popupMenu = PopupMenu(themeWrapper, view)
             popupMenu.inflate(R.menu.menu_home)
             handlePopupMenu(popupMenu)
@@ -86,18 +86,13 @@ class ReportsFragment : Fragment(R.layout.fragment_reports) {
     private fun handlePopupMenu(popupMenu: PopupMenu) {
         popupMenu.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.about_item -> startActivity(
+                R.id.terms_item -> startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
                         Uri.parse(URL_POLICY)
                     )
                 )
-                R.id.support_item -> startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(URL_POLICY)
-                    )
-                )
+
             }
             true
         }

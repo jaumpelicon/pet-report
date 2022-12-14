@@ -46,6 +46,6 @@
     <!--Info messages strings-->
     <string name="empty_reports_message">Nenhum relatório encontrado</string>
     <string name="support_title">Suporte</string>
-    <string name="about_title">Sobre</string>
+    <string name="terms_title">Termos de uso</string>
 
 </resources>

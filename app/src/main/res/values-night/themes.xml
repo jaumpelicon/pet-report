@@ -10,7 +10,12 @@
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
+        <item name="android:popupMenuStyle">@style/PopupMenuStyle</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="PopupMenuStyle" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:popupBackground">@color/primaryBackGroundColor</item>
     </style>
 </resources>

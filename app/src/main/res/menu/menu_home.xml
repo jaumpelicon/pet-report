@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:popupTheme="@style/PopupMenuStyle">
     <item
-        android:id="@+id/about_item"
-        android:title="@string/about_title" />
-    <item
-        android:id="@+id/support_item"
-        android:title="@string/support_title" />
+        android:id="@+id/terms_item"
+        android:title="@string/terms_title" />
 </menu>
