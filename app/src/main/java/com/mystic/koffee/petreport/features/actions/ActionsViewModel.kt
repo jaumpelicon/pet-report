@@ -41,6 +41,11 @@ class ActionsViewModel @Inject constructor(private val actionsRepository: Action
         }
     }
 
+
+
+
+
+
     fun getActions(reportId: Long) {
         viewModelScope.launch {
             actionsRepository.getAllActions(reportId).onStart {
